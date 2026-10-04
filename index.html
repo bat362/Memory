@@ -5,277 +5,311 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Flap Prova">
-<meta name="theme-color" content="#611a9e">
-<meta name="hub-build" content="FLP-20261003-01">
-<title>Flap · Ses + Hareket Kalibrasyonu</title>
+<meta name="apple-mobile-web-app-title" content="Dice Prova">
+<meta name="theme-color" content="#121129">
+<meta name="hub-build" content="DRL-20261004-01">
+<title>Dice Roll · Bağımsız Prova V1</title>
 <style>
-:root{color-scheme:dark;--bg:#170c26;--panel:#261239;--ink:#fcf3e9;--muted:#c6aedb;--pink:#ed6882;--line:#ffffff20}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}button,select,input{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible{outline:3px solid #ffe1a3;outline-offset:3px}[hidden]{display:none!important}button{touch-action:manipulation}button:disabled{opacity:.5;cursor:default}
-#home{max-width:520px;margin:auto;padding:max(26px,env(safe-area-inset-top)) 22px max(24px,env(safe-area-inset-bottom));min-height:100dvh;background:radial-gradient(ellipse at top right,#5e236153,transparent 50%)}
-.eyebrow{font-size:10px;letter-spacing:2.1px;font-weight:800;color:#e7add6}.topline{display:flex;justify-content:space-between;align-items:center;gap:15px}.buildtag{font-size:10px;border:1px solid var(--line);padding:7px 9px;border-radius:30px;color:#ccb4dc}h1{font-size:clamp(44px,13vw,66px);letter-spacing:-2.8px;line-height:.98;margin:24px 0 12px;font-weight:850}.intro{font-size:15px;line-height:1.6;color:var(--muted);margin:0 0 20px}.hero{height:215px;border:1px solid #ed68822d;border-radius:24px;background:#611a9e;overflow:hidden;position:relative;margin:20px 0}.hero canvas{width:100%;height:100%;display:block}.hero-label{position:absolute;left:15px;bottom:14px;background:#271332e6;font-size:10px;border-radius:30px;padding:8px 11px;letter-spacing:.7px;font-weight:750}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 20px}.stat{background:#ffffff06;border:1px solid var(--line);border-radius:16px;padding:14px}.stat b{display:block;font-size:28px;font-variant-numeric:tabular-nums;letter-spacing:-1px}.stat span{font-size:11px;color:var(--muted)}.primary,.secondary{width:100%;border:0;border-radius:15px;min-height:51px;padding:14px;font-weight:800;font-size:15px}.primary{background:var(--ink);color:#28133a}.primary.pink{background:var(--pink);color:#2f1122}.secondary{background:#ffffff09;border:1px solid var(--line);color:var(--ink);margin-top:10px}.quiet{background:none;border:0;color:#d3b8e4;min-height:42px;padding:10px;font-size:12px}.foot{color:#a38bb6;font-size:10px;line-height:1.65;margin:20px 0 4px}.notice{border:1px solid #eeb57460;background:#68431e66;border-radius:13px;font-size:12px;padding:14px;margin:12px 0}
-#game{position:fixed;inset:0;background:#611a9e;height:100dvh;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}#canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;display:block}.tools{position:absolute;z-index:4;left:12px;right:12px;top:max(10px,env(safe-area-inset-top));display:flex;justify-content:space-between;pointer-events:none}.tools div{display:flex;gap:8px}.tool{pointer-events:auto;width:38px;height:38px;border-radius:50%;border:1px solid #ffffff20;background:#2608408c;color:#fff5eb;font-size:21px;padding:0;display:grid;place-items:center}.tool.small{font-size:12px;font-weight:750}.banner{position:absolute;z-index:3;bottom:max(22px,calc(env(safe-area-inset-bottom) + 12px));left:8%;right:8%;background:#21092be8;border:1px solid #ffffff20;border-radius:18px;padding:17px;text-align:center;pointer-events:none}.banner strong{display:block;font-size:20px;margin:0 0 5px}.banner span{font-size:12px;line-height:1.5;color:#e1cde9}.mini-state{position:absolute;z-index:2;top:19%;left:0;right:0;text-align:center;font-size:10px;pointer-events:none;color:#e3cfe9;letter-spacing:.5px}
-.overlay{position:fixed;inset:0;background:#100616c7;backdrop-filter:blur(7px);z-index:12;display:flex;align-items:center;justify-content:center;padding:max(18px,env(safe-area-inset-top)) 15px max(18px,env(safe-area-inset-bottom));overflow-y:auto;touch-action:pan-y}.sheet{max-width:450px;width:100%;max-height:100%;overflow-y:auto;overscroll-behavior:contain;background:#261239;border:1px solid #876c9666;border-radius:26px;padding:23px;box-shadow:0 20px 80px #0007}.sheet-top{display:flex;align-items:center;justify-content:space-between}.sheet h2{font-size:31px;letter-spacing:-1.3px;margin:13px 0 8px;line-height:1.1}.sheet p{font-size:13px;color:var(--muted);line-height:1.6;margin:0 0 15px}.options{display:grid;grid-template-columns:1fr 1fr;gap:13px 10px;margin:18px 0}.field{display:flex;flex-direction:column;gap:6px;font-size:11px;color:#cbb2dd}.field select{background:#382149;border:1px solid #ffffff20;color:#fbf0ff;min-height:45px;border-radius:10px;padding:8px;font-size:13px;max-width:100%;touch-action:manipulation}.field.full{grid-column:1/-1}.check{font-size:12px;display:flex;align-items:center;gap:10px;margin:13px 0;color:#e0cbe9}.check input{width:20px;height:20px;accent-color:#ed6882}.method{font-size:11px!important;background:#ffffff05;border:1px solid #ffffff15;border-radius:12px;padding:12px}.detail{padding:13px 0;border-top:1px solid var(--line);font-size:13px;color:#dfc8eb}.detail summary{font-weight:750;cursor:pointer;padding:6px 0}.detail p{font-size:12px;margin:9px 0}.reason{padding:13px;background:#ed688216;border:1px solid #ed688244;border-radius:12px;color:#f4d2de!important;white-space:pre-line}.result{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}.result div{background:#ffffff07;padding:12px;border-radius:12px;color:var(--muted);font-size:11px}.result b{display:block;color:var(--ink);font-size:24px;margin-bottom:3px;font-variant-numeric:tabular-nums}.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-@media(max-height:720px){.overlay{align-items:flex-start}.sheet{padding:17px}.sheet h2{font-size:26px}.options{gap:9px;margin:12px 0}.hero{height:170px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}} 
+:root{color-scheme:dark;--bg:#121129;--muted:#b1acc9;--border:#ffffff20;--accent:#b9a6ff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;min-height:100%;overscroll-behavior:none}
+button,select,input{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible{outline:3px solid #c7b5ff;outline-offset:3px}
+button{touch-action:manipulation}p{line-height:1.55}a{color:#d6caff}
+#home{max-width:520px;margin:auto;min-height:100dvh;padding:max(25px,env(safe-area-inset-top)) 23px max(25px,env(safe-area-inset-bottom))}
+.kicker{font-size:10px;letter-spacing:2px;font-weight:800;color:#b6a1f6}
+.hero{height:166px;position:relative;margin:12px 0 6px;overflow:hidden}
+#heroCanvas{width:100%;height:100%;display:block}
+h1{font-size:46px;letter-spacing:-1.8px;line-height:1.02;margin:0 0 12px}h2{margin:0 0 12px;font-size:31px;letter-spacing:-.7px}
+.lead{font-size:14px;color:#c4bdd8;margin:0 0 20px;max-width:410px}
+.panel{border:1px solid var(--border);border-radius:20px;background:#ffffff06;padding:17px;margin:15px 0}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:13px 11px}.field{display:flex;flex-direction:column;gap:7px;font-size:11px;color:#c9c0e4}.field.wide{grid-column:1/-1}
+select{color:white;background:#29233e;border:1px solid #ffffff24;border-radius:10px;min-height:46px;width:100%;font-size:13px;padding:8px 28px 8px 10px}
+.note{color:#a69dbb;font-size:11px;line-height:1.5;margin:11px 0 0}
+.check{display:flex;gap:10px;align-items:center;color:#c8bdda;font-size:12px;margin-top:15px}.check input{width:18px;height:18px;accent-color:#9a79ff}
+.primary,.secondary{width:100%;border-radius:14px;min-height:52px;padding:14px 17px;font-weight:850;font-size:16px;border:1px solid #cdbdff66;color:white;background:linear-gradient(150deg,#8270f2,#5949c5);box-shadow:inset 0 -3px #0002}
+.secondary{background:#29233e;border-color:var(--border);box-shadow:none;margin-top:10px;font-size:14px;min-height:46px}
+.home-stats{display:flex;gap:10px;margin:14px 0 12px}.mini{flex:1;border-radius:13px;background:#ffffff05;border:1px solid #ffffff14;padding:12px;font-size:10px;color:#aaa0be}.mini b{display:block;font-size:24px;color:#f5efff;margin-bottom:5px;font-variant-numeric:tabular-nums}
+details{font-size:12px;color:#bdb3cf;line-height:1.55}summary{padding:8px 0;cursor:pointer;font-weight:750;color:#d7c9f2}details p{margin:8px 0}
+.build{margin:18px 0 7px;display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:10px;color:#8c80a3;line-height:1.6}.build button{padding:8px 10px;border:1px solid #ffffff22;background:transparent;color:#cbbde5;border-radius:9px;font-size:11px}
+.boot{background:#68461d;color:#ffe9be;border:1px solid #bb9549;border-radius:12px;padding:13px;font-size:12px;margin:12px 0}
+#game{position:fixed;inset:0;height:100dvh;background:#121129;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+#board{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+#keypad{position:absolute;inset:0;pointer-events:none}
+.key{position:absolute;padding:0;border:1.4px solid #ffffff23;border-radius:15px;background:#ffffff19;color:#fff;box-shadow:inset 0 1px 2px #fff1,0 0 0 .7px #fff1;display:flex;align-items:center;justify-content:center;pointer-events:auto;touch-action:none;-webkit-user-select:none;user-select:none;outline-offset:1px}
+.key svg{display:block;height:52%;width:45%;overflow:visible;pointer-events:none}
+.key[data-key="back"]{color:#ef9fab;border-color:#ed9aa930}.key[data-key="back"] svg{width:27%;height:42%;fill:none}
+.key[data-key="0"]:disabled,.key[data-key="back"]:disabled{opacity:.28}
+.key:disabled{cursor:default;opacity:.58}.key.held:not(:disabled){background:#ffffff31;transform:scale(.97)}
+.tools{position:absolute;z-index:5;top:max(10px,env(safe-area-inset-top));left:12px;right:12px;display:flex;justify-content:space-between;pointer-events:none}
+.tool{pointer-events:auto;background:#07061e73;border:1px solid #ffffff19;color:#c7bed6;border-radius:50%;width:34px;height:34px;padding:0;font-size:21px;display:grid;place-items:center}
+.overlay{position:absolute;z-index:10;inset:0;display:flex;align-items:center;justify-content:center;padding:max(54px,calc(env(safe-area-inset-top) + 44px)) 17px max(20px,env(safe-area-inset-bottom));overflow-y:auto;background:#09071dd9;touch-action:pan-y}
+.sheet{width:min(435px,100%);max-height:100%;overflow-y:auto;background:#201a35fa;border:1px solid #d0b4ff33;border-radius:25px;padding:24px;box-shadow:0 20px 90px #0008}
+.sheet .note{font-size:12px}.sheet p{color:#c1b2d4;font-size:13px}
+.result-number{font-size:56px;line-height:1;font-weight:900;letter-spacing:-2px;color:#f7f1ff;margin:12px 0 6px;font-variant-numeric:tabular-nums}
+.breakdown{margin:18px 0;border-top:1px solid #ffffff18}.brow{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid #ffffff13;color:#e1d6f2;font-size:12px}.brow b{font-size:18px;font-variant-numeric:tabular-nums}.brow small{display:block;color:#a697b9;margin-top:4px;font-size:10px}
+.badge{display:inline-block;background:#47335e;border:1px solid #ba9ef526;color:#d3bee8;border-radius:20px;padding:7px 11px;font-size:11px}
+#practiceReveal{position:absolute;z-index:4;pointer-events:auto;bottom:max(5px,env(safe-area-inset-bottom));left:12px;border:0;color:#bdadcf;background:#2b2046;padding:7px 10px;border-radius:9px;font-size:10px;touch-action:manipulation}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-height:730px){.hero{height:120px}h1{font-size:39px}.sheet{padding:18px}.overlay{align-items:flex-start}.result-number{font-size:45px}}
+@media(prefers-reduced-motion:reduce){.key.held:not(:disabled){transform:none}}
 </style>
 </head>
 <body>
 <main id="home">
- <div class="topline"><div class="eyebrow">BAĞIMSIZ ANTRENMAN</div><span class="buildtag">FLAP V1</span></div>
- <h1>Ritmi yakala.<br>Boşluğu koru.</h1>
- <p class="intro">Tek dokunuş, tek zıplama.<br>Hızlanan akışa ve daralan geçitlere hazırlan.</p>
- <div class="hero"><canvas id="preview" aria-label="Flap oyun önizlemesi"></canvas><span class="hero-label">SES + YÖRÜNGE KALİBRASYONU</span></div>
- <div class="stats"><div class="stat"><b id="bestHome">—</b><span>1× rehbersiz prova rekorun</span></div><div class="stat"><b>30</b><span>Kaynak videodaki skor</span></div></div>
- <button id="openSettings" class="primary pink" type="button">PROVAYA HAZIRLAN</button>
- <button id="watchHome" class="secondary" type="button">Ölçülen uçuşu izle · puansız</button>
- <div class="notice" id="boot">Oyun kodu henüz çalışmadı. Dosya önizlemesindeysen yayımladığın web sayfasından aç.</div>
- <p class="foot">FLP-20261003-01 · Yalnız Flap içerir.<br>Resmî Playus uygulaması değildir. Hesabına bağlanmaz, skor göndermez. Video ve ses ölçümlerine dayanan bağımsız bir yeniden yapımdır; özgün kod ve gizli temas sınırı bilinmiyor.</p>
- <button id="refresh" class="quiet" type="button">Sürümü yenile</button>
-</main>
-<section id="game" aria-label="Flap antrenman alanı" hidden>
- <canvas id="canvas" aria-label="Zıplamak için oyun alanına bir kez dokun. Basılı tutmak yeni zıplama oluşturmaz."></canvas>
- <div class="tools"><button class="tool" id="exit" type="button" aria-label="Ana ekrana dön">‹</button><div><button class="tool small" id="soundToggle" type="button" aria-label="Sesi aç veya kapat">SES</button><button class="tool" id="pause" type="button" aria-label="Duraklat">Ⅱ</button></div></div>
- <div id="phaseLabel" class="mini-state"></div>
- <div class="banner" id="readyBanner" hidden><strong>Başlamak için dokun</strong><span>Her yeni dokunuş yukarı zıplatır.<br>Parmağını kaldır, sonra yeniden dokun.</span></div>
- <span id="scoreAccessible" class="visually-hidden" aria-live="off">0 puan</span>
-</section>
-<section id="settingsOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="settingsHeading" hidden><div class="sheet">
- <div class="sheet-top"><span class="eyebrow">FLAP V1 · KAYIT REFERANSI</span><button type="button" class="quiet" id="settingsClose" aria-label="Ayarları kapat">Kapat</button></div>
- <h2 id="settingsHeading">Uçuşu çalış.</h2><p>Engelleri, tavanı ve zemini geçmeden kontrol et. Burada sürükleme veya jetpack gibi basılı itki yok: <strong>her yeni basış dikey hızı yukarı yönlü yeniler.</strong></p>
- <div class="options">
-  <label class="field">Parkur<select id="route"><option value="video">Videodaki 30 geçit</option><option value="random">Rastgele antrenman</option><option value="free">Engelsiz uçuş</option></select></label>
-  <label class="field">Tempo<select id="speed"><option value="0.75">0,75× · öğren</option><option value="1" selected>1,00× · video</option><option value="1.15">1,15× · zor</option></select></label>
-  <label class="field">Başlangıç<select id="checkpoint"><option value="0">Açılış</option><option value="10">10. saniye temposu</option><option value="20">20. saniye temposu</option><option value="30">30. saniye temposu</option></select></label>
-  <label class="field">Hata olduğunda<select id="mode"><option value="challenge">Deneme biter</option><option value="practice">Geri sar · devam et</option></select></label>
-  <label class="field full">Ekran yerleşimi<select id="layout"><option value="screen">Ekranı doldur · video oranları</option><option value="reference">Sabit video oranı · karşılaştır</option></select></label>
+ <div class="kicker">DICE ROLL · BAĞIMSIZ ANTRENMAN</div>
+ <div class="hero"><canvas id="heroCanvas" aria-hidden="true"></canvas></div>
+ <h1>Dört zar.<br>Tek toplam.</h1>
+ <p class="lead">Dört zarın ön yüzlerini topla. Sonucu aşağıdaki tuşlardan yaz. Üç turdaki cevap sürelerin toplanır; düşük süre daha iyidir.</p>
+ <div class="panel">
+  <div class="fields">
+   <label class="field wide">Zar dizisi<select id="route"><option value="reference">Video referansı · aynı 3 tur</option><option value="balanced">Yeni dengeli turlar · üretilmiş</option><option value="uniform">Serbest 4 zar · üretilmiş</option></select></label>
+   <label class="field">Oynanış<select id="mode"><option value="trial">3 tur · süreli prova</option><option value="learn">Tek tur · süresiz öğren</option></select></label>
+   <label class="field">Görüntü<select id="layout"><option value="screen">Ekrana uyumlu · kare zarlar</option><option value="reference">Sabit video oranı</option></select></label>
+  </div>
+  <p id="routeNote" class="note">Kayıttaki aynı zar yerleşimlerini tekrar eder. Buradaki rekor, ezberlenmemiş yeni bir turun eşdeğeri değildir.</p>
+  <label class="check"><input type="checkbox" id="sound">Kısa tuş sesi · sentezlenmiş, özgün kayıt değil</label>
  </div>
- <label class="check"><input id="guide" type="checkbox">Açıklık merkezi ve kısa yörünge rehberi</label>
- <label class="check"><input id="sound" type="checkbox" checked>Basış sesi · yeniden üretilmiş, müziksiz</label>
- <p class="method">1×, açılış, video parkuru ve rehbersiz mod yerel prova rekoruna sayılır. Diğer seçenekler ayrı çalışmadır. İlk 35,47 saniyenin akışı kayıttan; sonrası son ölçülen hızda üretilmiş devamdır. 30 puan bir üst sınır değildir.</p>
- <button id="prepare" class="primary pink" type="button">HAZIRLAN</button>
- <button id="watchSettings" class="secondary" type="button">Ölçülen uçuşu izle · puansız</button>
- <details class="detail"><summary>Bu oyunun püf noktaları</summary>
-  <p><strong>Bir parmak, tek temas.</strong> Elini alt-sağ boş bölgede sabitle. Kareyi veya yaklaşan açıklığı parmağınla kapatma.</p>
-  <p><strong>Yükseliş bitmeden ikinci kez basmak</strong> yükselişi yeniler. Arka arkaya gereksiz basışlar üst engele götürebilir. Bir basıştan sonra akışı gör.</p>
-  <p><strong>Alt sınıra çarpmayı bekleme.</strong> Kare düşerken yeni basışla yukarı yönlü hız alır; özellikle engel geçişinde hem yüksekliğini hem hareket yönünü hesaba kat.</p>
-  <p><strong>Sabit metronoma kilitlenme.</strong> Geçitlerin yükseklikleri farklı, tempo ilerledikçe artıyor. Gözünü kareyle en yakın açıklık arasındaki bölgede tut; sonraki kapıya da kısa bakışlar at.</p>
-  <p><strong>Çalışma:</strong> 0,75× + geri sar ile basış etkisine alış; sonra 1× rehbersiz oyna. Zor bölümü 20/30. saniye başlangıcından çalışabilirsin.</p>
+ <button type="button" class="primary" id="start">PROVAYA BAŞLA</button>
+ <div class="home-stats"><div class="mini"><b id="homeBest">—</b>SEÇİLİ DİZİ · YEREL REKOR</div><div class="mini"><b id="homeLast">—</b>SON 3 TURLUK DENEME</div></div>
+ <details><summary>Ölçülenler ve sınırlar</summary>
+  <p>Gönderdiğin kayıtta dört zar, üç tur, kendiliğinden doğru cevap kabulü ve zarlar dönerken bekleyen bir sayaç görülüyor. Referans sonuç 3,46 saniye.</p>
+  <p>Dönüş animasyonu yeniden çizildi. Video modu zar değerlerini ve yerleşimini korur; her animasyon karesinin aynısı değildir. Ekrana uyumlu modda zarlar kare kalır.</p>
+  <p>İspanyolca açıklama dengeli üç turdan söz ediyor; özgün rastgele üretim formülü bilinmiyor. “Yeni dengeli” ve “Serbest 4 zar” bizim ayrı antrenman dizilerimizdir.</p>
+  <p>Yanlış cevap cezası, dönerken yazma, gizli dokunma alanı ve input olayının tam türü tek başarılı kayıttan kesin çıkarılamaz. Bu sürüm dönerken yazmayı kapatır; yanlış sayıyı geri silerek düzeltirsin, ekstra ceza eklenmez ve süre işlemeye devam eder.</p>
+  <p>Her yeni temas bir rakam yazar; basılı tutma veya sürükleme tekrarlı rakam üretmez. Duraklatılmış denemeler rekora kaydedilmez. Skorlar sadece bu tarayıcıda tutulur; Playus’a bağlanılmaz.</p>
  </details>
- <p class="foot">Video: Nubot / Flap 30 Points. Kare ve ses eşlemesi fizik modelini destekler; sesin ham parmak kaydı olduğu varsayılmadı. Dokunma olayı, temas toleransı ve telefon ekran eşlemesi kesin özgün parametreler değildir. Kayıt gösterimi, modelde yeniden çıkarılmış basışlarla çalışır; gizli tuş kayıtları değildir.</p>
-</div></section>
-<section id="resultOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="resultHeading" hidden><div class="sheet">
- <div class="eyebrow" id="resultTag">PROVA</div><h2 id="resultHeading">Uçuş tamamlandı.</h2><p id="resultReason" class="reason"></p><div id="resultStats" class="result"></div>
- <button id="resultContinue" type="button" class="primary pink" hidden>DEVAM ET</button>
- <button id="retry" type="button" class="secondary">AYNI AYARLARLA TEKRAR</button><button id="reconfigure" type="button" class="secondary">AYARLARA DÖN</button><button id="resultHome" type="button" class="quiet">Ana ekran</button>
- <p id="resultNote" class="foot"></p>
-</div></section>
+ <div class="build"><span>DICE ROLL V1<br>DRL-20261004-01</span><button type="button" id="refresh">Sürümü yenile</button></div>
+ <div class="boot" id="boot">Kod henüz çalışmadı. Dosya önizlemesinden değil, yayımladığın GitHub Pages adresinden aç.</div>
+ <noscript><p>Bu oyun için JavaScript açık olmalıdır.</p></noscript>
+</main>
+<section id="game" hidden aria-label="Dice Roll oyun ekranı">
+ <canvas id="board" aria-label="Dört zar ve cevap süresi"></canvas>
+ <div id="keypad" role="group" aria-label="Toplamı yazacağın tuş takımı"></div>
+ <div class="tools"><button class="tool" id="exit" type="button" aria-label="Ana menüye dön">‹</button><button class="tool" id="pause" type="button" aria-label="Duraklat">Ⅱ</button></div>
+ <button type="button" id="practiceReveal" hidden>Toplamı göster · öğrenme</button>
+ <div class="overlay" id="overlay" hidden><div class="sheet" id="sheet">
+  <div class="kicker" id="overlayKicker">YEREL DENEME</div>
+  <h2 id="overlayTitle">Tamamlandı</h2>
+  <div id="resultNumber" class="result-number"></div>
+  <div class="badge" id="resultBadge"></div>
+  <div class="breakdown" id="breakdown"></div>
+  <p id="resultNote"></p>
+  <button type="button" class="primary" id="again">TEKRAR DENE</button>
+  <button type="button" class="secondary" id="menu">AYARLARA DÖN</button>
+ </div></div>
+ <div id="accessibleState" class="sr-only" aria-live="polite"></div>
+</section>
 <script>
 'use strict';
-// Self-contained, local practice. No external assets, APIs, accounts or score submission.
-const SOURCE={"version":"FLP-20261003-01","anchor":3.066666666666667,"duration":35.46666666666666,"vw":512,"vh":1038,"ceiling":238,"floor":1026,"playerX":221.62,"side":40,"radius":20,"g":0.031246172286369275,"jump":-2.2471827666839714,"initialY":618.5000008257766,"times":[0.0,0.033333,0.066667,0.1,0.133333,0.166667,0.2,0.233333,0.266667,0.3,0.333333,0.366667,0.4,0.433333,0.466667,0.5,0.533333,0.566667,0.6,0.633333,0.666667,0.7,0.733333,0.766667,0.8,0.833333,0.866667,0.9,0.933333,0.966667,1.0,1.033333,1.066667,1.1,1.133333,1.166667,1.2,1.233333,1.266667,1.3,1.333333,1.366667,1.4,1.433333,1.466667,1.5,1.533333,1.566667,1.6,1.633333,1.666667,1.7,1.733333,1.766667,1.8,1.833333,1.866667,1.9,1.933333,1.966667,2.0,2.033333,2.066667,2.1,2.133333,2.166667,2.2,2.233333,2.266667,2.3,2.333333,2.366667,2.4,2.433333,2.466667,2.5,2.533333,2.566667,2.6,2.633333,2.666667,2.7,2.733333,2.766667,2.8,2.833333,2.866667,2.9,2.933333,2.966667,3.0,3.033333,3.066667,3.1,3.133333,3.166667,3.2,3.233333,3.266667,3.3,3.333333,3.366667,3.4,3.433333,3.466667,3.5,3.533333,3.566667,3.6,3.633333,3.666667,3.7,3.733333,3.766667,3.8,3.833333,3.866667,3.9,3.933333,3.966667,4.0,4.033333,4.066667,4.1,4.133333,4.166667,4.2,4.233333,4.266667,4.3,4.333333,4.366667,4.4,4.433333,4.466667,4.5,4.533333,4.566667,4.6,4.633333,4.666667,4.7,4.733333,4.766667,4.8,4.833333,4.866667,4.9,4.933333,4.966667,5.0,5.033333,5.066667,5.1,5.133333,5.166667,5.2,5.233333,5.266667,5.3,5.333333,5.366667,5.4,5.433333,5.466667,5.5,5.533333,5.566667,5.6,5.633333,5.666667,5.7,5.733333,5.766667,5.8,5.833333,5.866667,5.9,5.933333,5.966667,6.0,6.033333,6.066667,6.1,6.133333,6.166667,6.2,6.233333,6.266667,6.3,6.333333,6.366667,6.4,6.433333,6.466667,6.5,6.533333,6.566667,6.6,6.633333,6.666667,6.7,6.733333,6.766667,6.8,6.833333,6.866667,6.9,6.933333,6.966667,7.0,7.033333,7.066667,7.1,7.133333,7.166667,7.2,7.233333,7.266667,7.3,7.333333,7.366667,7.4,7.433333,7.466667,7.5,7.533333,7.566667,7.6,7.633333,7.666667,7.7,7.733333,7.766667,7.8,7.833333,7.866667,7.9,7.933333,7.966667,8.0,8.033333,8.066667,8.1,8.133333,8.166667,8.2,8.233333,8.266667,8.3,8.333333,8.366667,8.4,8.433333,8.466667,8.5,8.533333,8.566667,8.6,8.633333,8.666667,8.7,8.733333,8.766667,8.8,8.833333,8.866667,8.9,8.933333,8.966667,9.0,9.033333,9.066667,9.1,9.133333,9.166667,9.2,9.233333,9.266667,9.3,9.333333,9.366667,9.4,9.433333,9.466667,9.5,9.533333,9.566667,9.6,9.633333,9.666667,9.7,9.733333,9.766667,9.8,9.833333,9.866667,9.9,9.933333,9.966667,10.0,10.033333,10.066667,10.1,10.133333,10.166667,10.2,10.233333,10.266667,10.3,10.333333,10.366667,10.4,10.433333,10.466667,10.5,10.533333,10.566667,10.6,10.633333,10.666667,10.7,10.733333,10.766667,10.8,10.833333,10.866667,10.9,10.933333,10.966667,11.0,11.033333,11.066667,11.1,11.133333,11.166667,11.2,11.233333,11.266667,11.3,11.333333,11.366667,11.4,11.433333,11.466667,11.5,11.533333,11.566667,11.6,11.633333,11.666667,11.7,11.733333,11.766667,11.8,11.833333,11.866667,11.9,11.933333,11.966667,12.0,12.033333,12.066667,12.1,12.133333,12.166667,12.2,12.233333,12.266667,12.3,12.333333,12.366667,12.4,12.433333,12.466667,12.5,12.533333,12.566667,12.6,12.633333,12.666667,12.7,12.733333,12.766667,12.8,12.833333,12.866667,12.9,12.933333,12.966667,13.0,13.033333,13.066667,13.1,13.133333,13.166667,13.2,13.233333,13.266667,13.3,13.333333,13.366667,13.4,13.433333,13.466667,13.5,13.533333,13.566667,13.6,13.633333,13.666667,13.7,13.733333,13.766667,13.8,13.833333,13.866667,13.9,13.933333,13.966667,14.0,14.033333,14.066667,14.1,14.133333,14.166667,14.2,14.233333,14.266667,14.3,14.333333,14.366667,14.4,14.433333,14.466667,14.5,14.533333,14.566667,14.6,14.633333,14.666667,14.7,14.733333,14.766667,14.8,14.833333,14.866667,14.9,14.933333,14.966667,15.0,15.033333,15.066667,15.1,15.133333,15.166667,15.2,15.233333,15.266667,15.3,15.333333,15.366667,15.4,15.433333,15.466667,15.5,15.533333,15.566667,15.6,15.633333,15.666667,15.7,15.733333,15.766667,15.8,15.833333,15.866667,15.9,15.933333,15.966667,16.0,16.033333,16.066667,16.1,16.133333,16.166667,16.2,16.233333,16.266667,16.3,16.333333,16.366667,16.4,16.433333,16.466667,16.5,16.533333,16.566667,16.6,16.633333,16.666667,16.7,16.733333,16.766667,16.8,16.833333,16.866667,16.9,16.933333,16.966667,17.0,17.033333,17.066667,17.1,17.133333,17.166667,17.2,17.233333,17.266667,17.3,17.333333,17.366667,17.4,17.433333,17.466667,17.5,17.533333,17.566667,17.6,17.633333,17.666667,17.7,17.733333,17.766667,17.8,17.833333,17.866667,17.9,17.933333,17.966667,18.0,18.033333,18.066667,18.1,18.133333,18.166667,18.2,18.233333,18.266667,18.3,18.333333,18.366667,18.4,18.433333,18.466667,18.5,18.533333,18.566667,18.6,18.633333,18.666667,18.7,18.733333,18.766667,18.8,18.833333,18.866667,18.9,18.933333,18.966667,19.0,19.033333,19.066667,19.1,19.133333,19.166667,19.2,19.233333,19.266667,19.3,19.333333,19.366667,19.4,19.433333,19.466667,19.5,19.533333,19.566667,19.6,19.633333,19.666667,19.7,19.733333,19.766667,19.8,19.833333,19.866667,19.9,19.933333,19.966667,20.0,20.033333,20.066667,20.1,20.133333,20.166667,20.2,20.233333,20.266667,20.3,20.333333,20.366667,20.4,20.433333,20.466667,20.5,20.533333,20.566667,20.6,20.633333,20.666667,20.7,20.733333,20.766667,20.8,20.833333,20.866667,20.9,20.933333,20.966667,21.0,21.033333,21.066667,21.1,21.133333,21.166667,21.2,21.233333,21.266667,21.3,21.333333,21.366667,21.4,21.433333,21.466667,21.5,21.533333,21.566667,21.6,21.633333,21.666667,21.7,21.733333,21.766667,21.8,21.833333,21.866667,21.9,21.933333,21.966667,22.0,22.033333,22.066667,22.1,22.133333,22.166667,22.2,22.233333,22.266667,22.3,22.333333,22.366667,22.4,22.433333,22.466667,22.5,22.533333,22.566667,22.6,22.633333,22.666667,22.7,22.733333,22.766667,22.8,22.833333,22.866667,22.9,22.933333,22.966667,23.0,23.033333,23.066667,23.1,23.133333,23.166667,23.2,23.233333,23.266667,23.3,23.333333,23.366667,23.4,23.433333,23.466667,23.5,23.533333,23.566667,23.6,23.633333,23.666667,23.7,23.733333,23.766667,23.8,23.833333,23.866667,23.9,23.933333,23.966667,24.0,24.033333,24.066667,24.1,24.133333,24.166667,24.2,24.233333,24.266667,24.3,24.333333,24.366667,24.4,24.433333,24.466667,24.5,24.533333,24.566667,24.6,24.633333,24.666667,24.7,24.733333,24.766667,24.8,24.833333,24.866667,24.9,24.933333,24.966667,25.0,25.033333,25.066667,25.1,25.133333,25.166667,25.2,25.233333,25.266667,25.3,25.333333,25.366667,25.4,25.433333,25.466667,25.5,25.533333,25.566667,25.6,25.633333,25.666667,25.7,25.733333,25.766667,25.8,25.833333,25.866667,25.9,25.933333,25.966667,26.0,26.033333,26.066667,26.1,26.133333,26.166667,26.2,26.233333,26.266667,26.3,26.333333,26.366667,26.4,26.433333,26.466667,26.5,26.533333,26.566667,26.6,26.633333,26.666667,26.7,26.733333,26.766667,26.8,26.833333,26.866667,26.9,26.933333,26.966667,27.0,27.033333,27.066667,27.1,27.133333,27.166667,27.2,27.233333,27.266667,27.3,27.333333,27.366667,27.4,27.433333,27.466667,27.5,27.533333,27.566667,27.6,27.633333,27.666667,27.7,27.733333,27.766667,27.8,27.833333,27.866667,27.9,27.933333,27.966667,28.0,28.033333,28.066667,28.1,28.133333,28.166667,28.2,28.233333,28.266667,28.3,28.333333,28.366667,28.4,28.433333,28.466667,28.5,28.533333,28.566667,28.6,28.633333,28.666667,28.7,28.733333,28.766667,28.8,28.833333,28.866667,28.9,28.933333,28.966667,29.0,29.033333,29.066667,29.1,29.133333,29.166667,29.2,29.233333,29.266667,29.3,29.333333,29.366667,29.4,29.433333,29.466667,29.5,29.533333,29.566667,29.6,29.633333,29.666667,29.7,29.733333,29.766667,29.8,29.833333,29.866667,29.9,29.933333,29.966667,30.0,30.033333,30.066667,30.1,30.133333,30.166667,30.2,30.233333,30.266667,30.3,30.333333,30.366667,30.4,30.433333,30.466667,30.5,30.533333,30.566667,30.6,30.633333,30.666667,30.7,30.733333,30.766667,30.8,30.833333,30.866667,30.9,30.933333,30.966667,31.0,31.033333,31.066667,31.1,31.133333,31.166667,31.2,31.233333,31.266667,31.3,31.333333,31.366667,31.4,31.433333,31.466667,31.5,31.533333,31.566667,31.6,31.633333,31.666667,31.7,31.733333,31.766667,31.8,31.833333,31.866667,31.9,31.933333,31.966667,32.0,32.033333,32.066667,32.1,32.133333,32.166667,32.2,32.233333,32.266667,32.3,32.333333,32.366667,32.4,32.433333,32.466667,32.5,32.533333,32.566667,32.6,32.633333,32.666667,32.7,32.733333,32.766667,32.8,32.833333,32.866667,32.9,32.933333,32.966667,33.0,33.033333,33.066667,33.1,33.133333,33.166667,33.2,33.233333,33.266667,33.3,33.333333,33.366667,33.4,33.433333,33.466667,33.5,33.533333,33.566667,33.6,33.633333,33.666667,33.7,33.733333,33.766667,33.8,33.833333,33.866667,33.9,33.933333,33.966667,34.0,34.033333,34.066667,34.1,34.133333,34.166667,34.2,34.233333,34.266667,34.3,34.333333,34.366667,34.4,34.433333,34.466667,34.5,34.533333,34.566667,34.6,34.633333,34.666667,34.7,34.733333,34.766667,34.8,34.833333,34.866667,34.9,34.933333,34.966667,35.0,35.033333,35.066667,35.1,35.133333,35.166667,35.2,35.233333,35.266667,35.3,35.333333,35.366667,35.4,35.433333,35.466667],"progress":[0.0,11.6546,21.4043,27.8674,36.126,42.2539,50.4847,58.2022,66.996,73.1218,81.8457,87.3656,95.4304,104.2999,109.8174,118.1286,129.0156,132.4359,140.6702,146.5972,155.4422,163.7463,171.6551,177.3106,184.4347,189.9546,195.629,200.1684,203.7372,209.7363,212.7217,216.3813,219.95,225.299,228.564,235.1734,243.2592,251.7257,258.0312,265.4775,278.1523,290.457,294.3652,300.6707,308.9747,317.0715,325.0272,333.0119,342.137,348.9657,355.7944,364.189,380.189,384.189,392.189,400.189,408.189,412.189,424.189,430.189,440.189,452.189,456.189,464.189,476.189,478.189,486.189,496.189,502.189,516.189,524.189,530.189,536.189,546.189,554.189,566.189,570.189,578.189,586.189,592.189,604.189,612.189,620.189,628.189,634.189,644.189,652.189,660.189,668.189,676.189,686.189,694.189,702.189,711.939,721.939,727.939,735.939,741.939,750.939,758.939,767.939,779.939,783.939,793.939,806.939,815.939,823.939,831.939,833.939,843.939,850.939,863.439,871.439,877.939,885.939,893.939,902.439,911.439,923.439,927.689,933.689,941.689,955.689,963.689,971.689,981.689,987.689,995.689,1003.689,1011.689,1017.689,1025.689,1033.689,1051.689,1059.689,1061.689,1071.689,1080.689,1085.689,1093.689,1101.689,1112.689,1117.189,1125.689,1135.689,1147.689,1157.689,1163.689,1169.689,1179.689,1187.689,1197.689,1203.689,1213.689,1220.189,1229.189,1237.689,1248.189,1263.189,1267.689,1273.689,1285.689,1295.689,1303.689,1311.689,1319.689,1325.689,1335.689,1339.689,1347.689,1359.689,1373.689,1377.689,1387.689,1397.689,1401.689,1413.689,1425.689,1429.689,1435.689,1442.689,1455.689,1463.689,1473.689,1481.689,1487.689,1495.689,1505.689,1513.689,1519.689,1531.689,1539.689,1549.689,1554.189,1567.689,1573.689,1582.189,1589.689,1599.689,1609.189,1617.689,1625.689,1631.689,1641.689,1653.689,1667.689,1671.689,1683.689,1687.689,1695.689,1707.689,1725.689,1737.689,1751.689,1765.689,1773.689,1781.689,1789.689,1793.689,1799.689,1804.689,1809.689,1813.689,1817.689,1824.189,1837.689,1846.689,1855.689,1861.689,1870.189,1879.689,1887.689,1897.189,1905.689,1915.189,1923.189,1932.189,1941.189,1953.689,1963.689,1971.689,1977.689,1987.689,1995.689,2009.689,2017.689,2019.689,2029.689,2041.689,2055.689,2057.689,2063.689,2075.689,2083.689,2093.689,2104.689,2113.689,2117.689,2129.689,2141.689,2145.689,2153.689,2162.689,2175.689,2180.689,2189.689,2198.189,2207.689,2216.689,2223.689,2235.689,2245.189,2254.189,2263.189,2269.689,2279.189,2287.689,2297.189,2307.689,2315.689,2323.689,2333.689,2345.689,2355.689,2363.689,2373.689,2381.689,2387.689,2397.689,2405.689,2415.689,2429.689,2431.689,2440.189,2459.189,2464.189,2477.189,2486.189,2491.189,2500.189,2507.189,2520.189,2529.189,2538.189,2543.189,2559.189,2563.689,2573.189,2584.189,2592.689,2600.689,2614.189,2615.189,2624.689,2634.189,2643.189,2650.189,2666.689,2676.689,2686.689,2694.689,2704.689,2708.689,2718.689,2732.689,2734.689,2748.689,2752.689,2762.689,2768.689,2776.689,2788.689,2796.689,2810.689,2822.689,2828.689,2838.689,2844.689,2856.689,2862.689,2872.689,2882.689,2894.689,2902.689,2912.689,2920.689,2932.689,2936.689,2949.189,2956.689,2965.189,2974.689,2988.689,2997.689,3002.689,3012.689,3022.689,3032.689,3040.689,3050.689,3056.689,3066.689,3076.689,3090.689,3098.689,3106.689,3114.689,3124.689,3134.439,3144.439,3153.439,3160.439,3170.439,3182.439,3196.439,3200.439,3209.939,3219.439,3228.439,3238.439,3247.439,3256.439,3266.439,3273.439,3282.439,3292.439,3301.939,3310.439,3322.439,3336.439,3343.939,3350.189,3358.189,3372.189,3380.189,3388.189,3398.189,3408.189,3416.189,3428.189,3434.189,3442.189,3456.189,3464.189,3474.189,3483.189,3492.189,3502.189,3512.189,3522.189,3531.189,3542.189,3548.189,3562.189,3572.189,3579.189,3588.189,3598.189,3606.189,3614.189,3624.189,3636.189,3650.689,3658.189,3664.689,3676.689,3686.689,3696.189,3706.189,3712.189,3722.189,3732.189,3742.189,3750.189,3760.189,3768.189,3782.189,3792.189,3800.189,3810.189,3820.189,3827.939,3837.939,3849.939,3857.439,3866.939,3876.939,3886.939,3896.939,3907.939,3917.939,3929.939,3937.939,3946.939,3956.939,3963.939,3973.939,3988.939,3995.439,4005.439,4019.939,4025.439,4034.939,4045.689,4053.689,4065.689,4073.689,4085.689,4091.689,4101.689,4109.689,4119.689,4129.689,4139.689,4153.689,4163.689,4171.689,4181.439,4191.439,4201.439,4208.439,4217.939,4233.439,4239.439,4255.439,4263.439,4272.439,4281.939,4292.439,4301.939,4311.439,4321.439,4329.439,4336.939,4346.939,4356.939,4371.439,4381.439,4388.939,4397.189,4408.189,4417.189,4427.189,4437.189,4445.189,4455.189,4465.189,4477.189,4487.189,4495.189,4505.189,4515.189,4524.439,4535.439,4544.439,4555.439,4565.439,4577.439,4585.439,4599.439,4609.439,4619.439,4627.439,4637.439,4647.439,4657.439,4667.439,4677.439,4687.939,4697.939,4709.939,4715.439,4729.939,4739.689,4749.689,4761.689,4767.689,4777.689,4787.689,4797.689,4807.689,4815.689,4829.689,4839.689,4851.689,4861.689,4875.939,4885.939,4895.939,4903.939,4913.939,4918.939,4929.439,4947.439,4954.939,4965.939,4975.939,4985.939,4995.939,5003.939,5013.939,5024.439,5034.439,5044.439,5054.439,5069.939,5077.939,5088.189,5094.189,5104.189,5114.189,5126.189,5132.189,5142.189,5154.189,5164.189,5174.189,5184.189,5194.189,5214.189,5217.564,5228.064,5238.564,5246.564,5256.564,5266.564,5274.564,5284.564,5295.064,5305.564,5315.564,5330.564,5341.564,5351.564,5360.564,5370.564,5380.564,5391.064,5403.064,5411.064,5422.064,5432.564,5442.939,5456.939,5466.939,5472.939,5486.939,5496.939,5506.939,5516.939,5526.939,5532.939,5544.939,5562.939,5572.189,5580.189,5591.189,5601.189,5611.689,5622.189,5630.189,5645.189,5653.189,5661.189,5677.189,5685.189,5698.189,5706.189,5719.189,5727.189,5737.689,5747.689,5758.689,5769.189,5777.189,5787.439,5803.439,5813.439,5823.439,5831.439,5841.439,5853.439,5863.439,5873.439,5887.439,5895.439,5903.439,5922.189,5932.189,5940.189,5949.189,5962.189,5970.189,5980.189,5991.189,6001.189,6015.189,6025.189,6031.189,6047.189,6057.189,6068.189,6076.689,6086.689,6097.189,6108.689,6118.689,6128.939,6136.939,6152.939,6166.939,6174.939,6184.939,6196.939,6204.939,6212.939,6222.939,6232.939,6244.939,6254.939,6271.439,6282.439,6290.439,6300.439,6311.439,6322.439,6333.439,6341.439,6354.939,6362.439,6373.939,6384.439,6400.939,6403.439,6419.939,6430.439,6441.439,6451.939,6462.439,6473.939,6481.939,6491.939,6507.939,6519.939,6527.939,6541.939,6551.939,6561.939,6573.939,6581.939,6591.939,6603.939,6614.439,6631.439,6642.439,6650.439,6661.439,6672.439,6683.439,6693.439,6702.439,6713.439,6729.439,6740.439,6751.439,6762.939,6773.439,6781.439,6792.939,6802.939,6814.939,6822.939,6836.939,6852.939,6860.939,6872.939,6882.939,6890.939,6902.939,6912.939,6920.939,6932.939,6944.939,6954.939,6970.939,6982.939,6994.439,7000.939,7012.939,7024.939,7034.939,7046.939,7057.939,7068.939,7082.939,7092.939,7104.939,7115.439,7126.939,7138.439,7146.439,7157.439,7168.939,7178.939,7190.939,7198.939,7209.939,7224.939,7234.939,7248.939,7260.939,7270.939,7282.939,7290.939,7302.939,7312.939,7324.939,7338.939,7350.939,7358.939,7372.939,7384.939,7394.939,7406.939,7418.939,7428.939,7446.939,7454.939,7462.939,7474.439,7482.939,7496.939,7508.439,7516.439,7530.939,7538.939,7550.939,7562.939,7572.939,7590.939,7592.939,7609.939,7620.939,7632.939,7646.939,7654.939,7664.939,7674.939,7686.939,7703.939,7715.439,7726.939,7734.939,7746.939,7758.939,7768.939,7780.939,7792.939,7804.439,7812.439,7824.439,7834.939,7846.939,7864.439,7869.439,7886.939,7894.939,7906.939,7918.939,7928.939,7940.939,7952.939,7960.939,7972.939,7984.939,7994.939,8010.189,8021.189,8033.189,8045.189,8056.689,8068.189,8079.689,8091.189,8097.189,8109.189,8126.189,8137.189,8149.189,8161.189,8169.689,8181.189,8192.189,8207.189,8221.439,8233.439,8244.439,8253.439,8265.439,8279.439,8281.439,8299.439,8311.439,8323.439,8333.439,8345.439,8357.439,8369.439,8381.439,8389.439,8407.439,8419.439,8431.439,8443.439,8451.439,8463.439,8475.439,8487.439,8498.939,8509.939,8525.439,8531.439,8548.939,8560.939,8571.439,8583.439,8589.439,8601.439,8613.439,8625.439,8639.439,8651.439,8663.439,8675.439,8687.439,8699.439,8711.189,8719.189,8731.189,8743.189,8755.189,8770.189,8779.189,8800.189,8809.189,8821.189,8833.189,8844.189,8856.689,8868.689,8879.689,8888.689,8901.189,8912.689,8926.939,8938.939,8950.939,8962.939,8974.939,8986.939,8996.939,9008.939,9018.939,9032.939,9049.939,9062.439,9070.939,9082.939,9091.939,9103.939,9122.939,9130.939,9140.939,9152.939,9164.939,9176.939,9188.939,9209.439,9218.439,9227.439,9239.439,9251.439,9263.439,9274.939,9286.939,9296.939,9314.939,9326.939,9338.939,9350.939,9358.939,9370.939,9384.939,9399.689,9408.689,9418.189,9432.689,9450.689,9460.689,9472.689,9481.689,9493.689,9506.689,9518.689,9530.689,9542.689,9552.189,9564.189,9582.689,9594.689,9606.689,9618.439,9628.439,9644.439,9652.439,9664.439,9676.439,9692.439,9702.439,9710.439,9732.439,9744.439,9753.439,9766.439,9774.439,9788.439,9800.439,9812.439,9824.439,9836.439,9850.439,9858.439,9880.439,9889.439,9904.939,9916.939,9929.939,9936.439,9948.439,9960.439,9972.439,9984.439,10000.439,10012.439,10018.439,10034.439,10046.439,10058.439,10068.439,10082.439,10094.439,10106.189,10118.189,10138.189,10146.189,10159.689,10172.189,10188.189,10200.189,10209.689,10222.189,10234.689,10253.689,10265.689,10278.189,10287.689,10300.189,10311.939,10325.939,10337.939,10347.939,10359.939,10371.939,10383.939,10397.939,10412.939,10415.939,10441.939,10450.689,10464.189,10476.189,10489.189,10498.189,10511.189,10524.189,10536.189,10548.189,10568.189,10578.189,10590.189,10602.689,10616.189,10628.189,10640.689,10654.189,10670.439,10676.439,10692.439,10704.439,10716.439,10726.439,10738.439,10752.439,10764.439,10780.439],"taps":[0.444167,1.465609,2.025191,2.63736,3.237341,3.668103,4.147357,4.780513,5.431552,6.004458,6.487688,6.971284,7.685301,8.127885,8.606249,9.238331,9.671838,10.14153,10.689917,11.238123,11.653725,12.090363,12.716745,13.174727,13.749287,14.317439,14.806759,15.209164,15.607952,16.126116,16.523653,16.92188,17.484878,17.883115,18.434426,18.95371,19.350419,19.959211,20.382108,20.900419,21.233911,21.61269,21.871221,22.063868,22.399397,23.008759,23.331088,23.666678,24.222352,24.573526,25.218977,25.516092,25.859041,26.137837,26.438754,26.77652,27.222087,27.577846,28.147037,28.612174,29.034565,29.4331,29.834725,30.128554,30.493131,30.868139,31.210412,31.508094,32.05189,32.301489,32.635016,33.192448,33.525097,33.88722,34.30361,34.611133,35.054155,35.366667],"tapProgress":[106.09305,308.71137,449.25774,593.63844,743.0212,851.47781,975.89611,1129.84298,1303.26154,1444.4275,1571.47289,1697.3512,1884.1613,2007.40071,2131.93878,2298.76329,2417.86103,2547.1232,2701.66406,2846.41327,2961.88884,3086.64146,3261.46266,3390.607,3554.88948,3717.4207,3859.36525,3978.06302,4094.07449,4251.97472,4367.22814,4483.75294,4652.90234,4772.62359,4947.68488,5100.30205,5222.94611,5409.27472,5538.49795,5706.35249,5813.61245,5935.23454,6016.55518,6075.97543,6184.75798,6376.69809,6481.40015,6591.94327,6778.8035,6893.40835,7110.91663,7204.24922,7322.19389,7420.29001,7518.79706,7637.07749,7788.89044,7910.96357,8102.12244,8270.55204,8419.88248,8560.85501,8699.92947,8807.89849,8936.46611,9071.46907,9195.3424,9301.30952,9500.926,9595.22504,9711.54958,9926.99382,10043.47384,10182.0548,10339.02204,10455.19784,10623.68477,10738.43902],"sourceY":[630.5,606.923,588.961,579.801,569.158,563.037,556.069,551.72,549.235,548.759,550.32,552.324,557.3,564.267,550.835,534.867,520.77,512.09,501.432,495.438,488.648,484.748,482.457,482.109,482.859,485.028,487.997,490.817,494.509,500.295,502.077,507.519,512.991,518.823,525.037,535.853,552.457,570.442,590.919,607.059,644.032,685.61,700.661,723.776,731.032,714.809,700.142,687.737,677.809,669.577,664.481,660.158,658.098,658.459,662.017,666.61,674.119,678.32,694.617,704.335,719.633,728.048,719.114,703.615,684.675,681.636,672.392,662.839,659.335,654.613,655.018,656.842,659.61,666.717,672.496,688.29,694.3,708.786,724.56,738.173,712.179,698.366,685.967,675.56,669.02,662.939,658.501,656.135,656.313,657.88,663.359,670.284,678.943,690.551,707.368,719.342,737.02,751.866,733.635,718.165,704.372,688.108,683.968,676.133,670.615,669.377,670.71,674.587,675.408,683.799,690.065,663.73,649.396,640.111,629.35,620.926,614.389,609.986,607.979,607.923,609.773,614.165,623.844,633.395,644.954,637.994,625.784,610.859,601.902,590.485,584.357,576.979,572.247,569.79,572.141,572.882,579.844,587.169,592.516,603.579,616.869,636.975,646.127,665.765,662.598,639.06,625.701,617.046,610.525,601.59,597.144,594.567,594.481,596.826,599.91,606.39,615.014,628.635,653.882,662.193,676.35,707.18,731.007,757.439,738.866,723.267,713.016,700.759,695.393,687.273,678.554,675.396,675.332,677.588,682.949,686.072,699.316,714.789,721.463,733.17,746.479,728.357,712.679,699.552,688.854,681.875,675.347,671.047,668.899,668.871,671.945,676.611,686.702,691.879,709.733,711.988,694.207,682.34,665.501,654.494,646.169,640.039,637.321,635.01,636.367,643.177,646.544,659.971,666.132,675.553,656.635,627.892,613.246,603.266,599.548,600.076,602.712,606.492,609.307,615.304,619.728,625.551,631.386,637.799,648.602,674.922,695.128,718.186,736.76,763.499,793.329,799.049,781.759,766.629,754.025,743.98,735.817,730.851,726.906,727.701,730.879,734.697,742.011,752.303,762.956,744.881,740.766,725.706,707.351,694.824,693.068,689.067,686.577,686.658,689.297,696.356,705.081,710.08,726.355,705.85,701.58,686.956,673.947,659.304,655.648,650.594,647.796,647.965,650.498,653.749,664.831,675.258,688.542,703.987,716.874,737.576,759.746,784.733,772.502,759.963,744.812,733.083,719.433,713.626,710.276,709.444,711.133,713.965,720.416,728.855,740.493,719.826,715.577,700.527,676.927,672.859,664.411,661.887,661.565,662.849,666.025,675.963,686.24,698.334,705.879,690.163,681.328,666.89,651.809,643.106,637.859,632.55,632.386,632.748,635.047,640.508,646.464,665.245,684.211,702.106,722.913,734.425,725.098,707.229,686.276,683.121,669.046,665.719,660.484,658.311,658.577,661.657,665.819,678.252,693.915,705.414,722.522,736.938,722.909,710.089,694.967,682.418,669.396,664.894,661.566,660.293,663.417,665.471,674.453,681.859,685.665,666.338,642.941,630.412,625.363,615.539,611.032,608.847,609.45,612.709,617.0,625.092,635.711,647.436,628.136,616.031,601.596,590.24,581.626,575.766,573.041,572.329,574.174,580.61,594.026,599.776,613.692,629.886,649.63,671.431,696.341,724.304,728.965,714.47,697.852,684.641,673.424,665.165,659.339,657.483,658.586,661.703,666.374,680.568,690.206,705.063,694.231,676.06,660.92,645.401,641.034,633.635,628.024,627.188,629.269,633.629,641.384,652.073,665.845,681.762,701.053,728.841,741.653,746.114,728.056,716.086,703.264,692.953,687.422,682.207,680.031,681.35,688.305,694.601,702.049,718.878,735.296,754.517,777.127,795.545,798.695,779.681,763.561,750.258,740.567,734.843,728.089,727.458,729.389,734.534,742.449,750.217,763.464,784.624,799.177,788.544,770.393,755.13,742.557,731.375,725.449,722.839,723.275,726.053,732.822,739.339,750.825,737.15,723.127,708.06,691.036,686.232,680.234,676.684,676.012,679.861,684.04,695.08,700.764,696.327,677.434,661.432,647.956,637.988,628.563,625.895,626.355,629.221,635.285,643.933,652.918,666.998,693.959,710.843,736.364,720.906,703.456,688.277,676.345,667.987,662.474,660.077,660.114,662.314,667.197,675.588,684.679,664.95,652.216,637.255,625.236,617.224,611.521,608.896,608.776,611.963,617.893,629.957,633.995,618.627,600.84,586.155,574.973,566.589,561.677,559.958,561.31,567.531,573.32,590.81,606.478,625.289,641.239,665.561,692.963,697.43,677.405,660.715,647.693,637.396,629.302,628.112,627.162,630.56,636.702,646.567,656.214,651.954,632.401,616.121,602.93,595.059,584.658,581.91,582.244,585.424,597.471,609.014,624.142,637.851,658.145,669.794,695.679,748.564,731.928,712.908,697.12,684.571,675.812,670.555,667.212,667.426,670.021,676.156,686.004,706.626,719.745,739.88,756.981,758.369,738.379,722.222,711.388,701.043,693.487,689.225,687.966,690.455,695.844,716.999,720.397,717.316,697.365,684.134,670.363,659.289,653.194,648.48,647.307,648.852,653.985,668.244,681.621,698.602,713.702,736.355,762.759,792.482,834.105,846.936,825.533,808.334,794.072,779.463,774.463,771.489,771.254,774.931,781.654,791.825,805.424,813.708,805.581,777.715,763.752,755.277,747.042,742.103,741.348,743.377,747.408,760.843,770.896,782.354,812.421,829.577,863.651,885.983,859.123,845.593,830.16,818.994,810.536,805.737,804.454,806.489,814.91,824.909,802.691,788.701,772.698,759.906,750.706,745.394,743.342,744.6,748.244,764.225,777.745,770.206,754.5,733.362,722.467,712.019,704.647,700.919,701.174,685.285,675.417,649.621,637.016,627.977,623.741,601.21,582.691,567.325,555.675,547.398,544.394,542.523,547.408,553.52,564.187,541.894,527.282,515.141,501.476,491.961,485.62,482.956,486.482,493.24,500.547,513.801,530.825,551.0,575.154,595.767,634.778,661.084,698.958,691.27,662.892,659.416,640.107,632.499,628.19,627.557,630.877,637.389,645.064,622.371,595.3,581.771,574.237,566.113,563.474,564.903,569.838,575.965,587.518,564.71,545.353,524.0,514.185,509.539,506.258,507.06,511.672,519.812,528.675,543.2,573.14,597.325,625.335,657.376,693.557,706.709,684.241,666.0,651.773,643.757,634.262,631.286,632.721,637.992,647.462,657.001,642.872,622.752,610.12,596.714,587.373,581.671,580.369,584.61,592.298,600.826,615.571,634.369,657.225,683.299,713.653,747.798,796.549,839.456,886.34,899.213,877.827,860.14,849.696,839.602,832.339,829.736,830.53,834.058,825.601,799.753,783.004,768.144,760.486,756.811,756.771,759.567,767.211,777.807,782.629,755.138,737.983,727.252,715.196,709.442,708.072,710.279,716.726,701.063,672.161,660.659,651.543,643.12,639.552,638.292,641.894,647.054,625.945,610.609,594.056,581.847,573.435,568.009,567.924,573.331,581.784,594.522,584.05,567.775,554.135,539.871,529.553,521.465,521.336,525.264,531.024,542.315,557.238,576.66,600.587,614.518,591.575,577.01,561.559,550.038,542.747,539.562,540.152,549.623,557.469,571.821,567.722,546.513,528.85,515.0,507.316,501.029,499.278,501.219,509.937,521.512,537.546,557.278,581.28,610.205,642.958,680.108,699.751,708.603,676.914,661.306,649.801,642.91,640.419,640.662,644.82,656.17,674.392,694.067,717.205,738.019,768.602,766.978,761.749,733.055,719.548,710.319,705.195,704.731,708.172,716.04,728.925,740.573,772.487,798.72,774.846,754.316,741.775,729.88,722.067,717.984,718.371,723.322,735.788,742.549,769.54,792.687,768.32,748.533,739.911,726.168,717.215,712.247,712.811,717.468,727.051,739.978,758.517,780.811,756.287,740.899,724.148,711.244,703.675,699.867,701.133,713.302,722.415,697.839,677.554,662.28,650.788,643.807,641.47,642.559,648.25,657.714,676.394,684.522,660.991,641.922,627.655,617.302,612.426,610.241,612.429,618.772,637.422,655.196,671.906,647.053,631.376,614.396,597.531,593.129,591.032,592.407,598.22,608.889,624.066,602.399,587.889,575.572,563.095,555.016,552.024,553.537,559.459,566.475,547.91,527.981,511.984,500.601,495.564,492.181,493.577,501.918,510.886,521.571,546.595,585.451,609.323,644.758,674.581,717.939,728.49,705.755,687.572,674.229,666.948,661.675,662.708,668.821,652.11,630.152,617.136,600.947,594.516,590.805,591.095,598.281,606.131,617.145,585.012,567.101,556.529,547.381,542.962,541.975,545.381,554.174,567.644,585.736,608.615,628.896,686.703,716.406,771.181,820.708,854.124,841.475,819.344,802.824,790.132,782.589,780.094,783.393,786.938,800.662,806.089,781.335,766.139,750.649,739.909,734.097,733.401,740.761,748.866,764.266,783.958,788.551,765.213,750.706,736.112,726.454,721.106,723.919,731.303,739.893,756.034,776.988,803.389,833.908,814.452,792.475,775.061,762.548,755.633,753.379,754.004,769.3,779.943,764.503,741.988,724.716,715.008,706.689,703.647,705.195,711.982,731.912,745.903,769.274,797.654,830.908,835.762,812.022,793.285,777.661,773.158,768.338,769.944,776.62,785.503,800.855,774.735,753.812,734.725],"gates":[{"s":897.189,"top":591.0,"bottom":846.0,"w":68,"n":1},{"s":1242.689,"top":480.0,"bottom":732.0,"w":68,"n":2},{"s":1588.689,"top":596.0,"bottom":844.0,"w":68,"n":3},{"s":1934.689,"top":502.0,"bottom":746.0,"w":68,"n":4},{"s":2280.689,"top":591.0,"bottom":830.0,"w":68,"n":5},{"s":2628.689,"top":590.0,"bottom":824.0,"w":68,"n":6},{"s":2975.689,"top":579.0,"bottom":810.0,"w":68,"n":7},{"s":3321.689,"top":487.0,"bottom":712.0,"w":68,"n":8},{"s":3669.189,"top":545.0,"bottom":766.0,"w":68,"n":9},{"s":4015.189,"top":652.0,"bottom":870.0,"w":68,"n":10},{"s":4362.689,"top":542.0,"bottom":756.0,"w":68,"n":11},{"s":4710.189,"top":506.0,"bottom":716.0,"w":68,"n":12},{"s":5058.689,"top":501.0,"bottom":706.0,"w":68,"n":13},{"s":5407.189,"top":595.0,"bottom":796.0,"w":68,"n":14},{"s":5753.939,"top":679.0,"bottom":876.0,"w":68,"n":15},{"s":6100.439,"top":677.0,"bottom":870.0,"w":68,"n":16},{"s":6449.939,"top":429.0,"bottom":618.0,"w":68,"n":17},{"s":6798.939,"top":468.0,"bottom":652.0,"w":68,"n":18},{"s":7147.939,"top":541.0,"bottom":722.0,"w":68,"n":19},{"s":7495.939,"top":689.0,"bottom":864.0,"w":68,"n":20},{"s":7843.939,"top":490.0,"bottom":660.0,"w":68,"n":21},{"s":8193.939,"top":446.0,"bottom":614.0,"w":68,"n":22},{"s":8542.439,"top":669.0,"bottom":832.0,"w":68,"n":23},{"s":8890.439,"top":670.0,"bottom":828.0,"w":68,"n":24},{"s":9239.939,"top":568.0,"bottom":722.0,"w":68,"n":25},{"s":9587.939,"top":447.0,"bottom":598.0,"w":68,"n":26},{"s":9937.439,"top":519.0,"bottom":668.0,"w":68,"n":27},{"s":10285.439,"top":699.0,"bottom":848.0,"w":68,"n":28},{"s":10634.939,"top":687.0,"bottom":838.0,"w":68,"n":29},{"s":10985.439,"top":698.0,"bottom":848.0,"w":68,"n":30}],"sourceAngle":[0.0,0.1419,0.2606,0.33929,0.43984,0.51445,0.61466,0.70863,0.81569,0.89028,0.99649,1.0637,1.16189,1.26988,1.33705,1.43824,1.5708,1.61244,1.71269,1.78486,1.89255,1.99365,2.08994,2.1588,2.24554,2.31274,2.38183,2.4371,2.48055,2.55359,2.58994,2.63449,2.67795,2.74307,2.78282,2.86329,2.96174,3.06482,3.14159,3.23225,3.38657,3.53638,3.58397,3.66074,3.76184,3.86042,3.95728,4.0545,4.1656,4.24874,4.33188,4.43409,4.62173,4.67907,4.77896,4.87754,4.97864,5.03414,5.17604,5.25281,5.35589,5.49779,5.55037,5.65439,5.80672,5.81954,5.93441,6.05209,6.13054,6.28319,6.40754,6.47437,6.54944,6.68808,6.74683,6.90343,6.95793,7.06858,7.15172,7.2285,7.37147,7.46566,7.57568,7.67413,7.7491,7.85398,7.94464,8.05138,8.14942,8.24877,8.36108,8.46471,8.56973,8.63938,8.79598,8.86618,8.96113,9.04427,9.14098,9.25011,9.34495,9.49135,9.54421,9.66976,9.8131,9.92762,10.01278,10.1137,10.14361,10.26567,10.33988,10.48848,10.59068,10.67382,10.76878,10.86725,10.99557,11.06214,11.21424,11.26474,11.3386,11.44168,11.59275,11.69031,11.80225,11.92287,11.9873,12.10272,12.16148,12.26349,12.33957,12.43382,12.56637,12.73856,12.83732,12.86181,12.98922,13.08552,13.1331,13.23042,13.35177,13.46243,13.51692,13.60909,13.72704,13.87984,13.98828,14.06323,14.13717,14.26152,14.35584,14.45892,14.53196,14.65631,14.72517,14.83191,14.92257,15.05512,15.22708,15.28134,15.35497,15.51057,15.59731,15.70796,15.80763,15.91198,15.98626,16.0823,16.12247,16.22711,16.3827,16.53334,16.5765,16.70742,16.79787,16.84213,17.00781,17.13168,17.17909,17.27876,17.27876,17.48278,17.57726,17.67728,17.77811,17.85306,17.9535,18.06416,18.15482,18.22931,18.35021,18.44932,18.57861,18.63089,18.77825,18.84956,18.94922,19.02423,19.14805,19.25445,19.34598,19.43756,19.5243,19.63495,19.77685,19.93039,19.97283,20.1289,20.17537,20.2405,20.42035,20.60021,20.7421,20.884,21.0406,21.13918,21.2492,21.31641,21.3709,21.43949,21.50119,21.54243,21.59636,21.64812,21.71814,21.87052,21.99115,22.07429,22.14004,22.23613,22.33992,22.43867,22.53794,22.644,22.7443,22.84311,22.9417,23.03715,23.18761,23.28894,23.3968,23.46228,23.56194,23.65842,23.80692,23.91072,23.93284,24.02559,24.18219,24.34734,24.34734,24.43048,24.56601,24.66909,24.76185,24.88776,24.98566,25.03307,25.13274,25.31259,25.33814,25.43563,25.53763,25.68705,25.72992,25.83263,25.94036,26.03757,26.13681,26.20419,26.35477,26.45856,26.56164,26.66189,26.70354,26.83186,26.93463,27.02529,27.14964,27.23161,27.34005,27.43635,27.5796,27.68633,27.77499,27.88373,27.98288,28.05566,28.15723,28.27433,28.35416,28.50542,28.52801,28.6231,28.82864,28.88214,29.03117,29.1263,29.17039,29.2784,29.35517,29.49957,29.60015,29.70806,29.74866,29.93579,29.97345,30.07622,30.2039,30.29124,30.3732,30.52565,30.55376,30.63053,30.74119,30.85733,30.92199,31.09418,31.21853,31.32097,31.41593,31.52658,31.56858,31.67111,31.82082,31.83735,32.00393,32.05095,32.14583,32.20132,32.31198,32.43817,32.50938,32.67702,32.79673,32.86237,32.98672,33.03668,33.16658,33.2317,33.33549,33.45037,33.59745,33.66146,33.77212,33.87179,33.99079,34.03837,34.16691,34.23577,34.33885,34.43809,34.59322,34.69007,34.73737,34.8634,34.96643,35.06462,35.15757,35.25978,35.34292,35.43939,35.54031,35.68221,35.78902,35.85531,35.96317,36.05154,36.12832,36.26087,36.35755,36.4312,36.53321,36.66004,36.81405,36.85822,36.9613,37.05561,37.15869,37.26248,37.36244,37.45413,37.55721,37.63254,37.73243,37.82881,37.9302,38.02086,38.16276,38.30984,38.37385,38.45749,38.53209,38.68191,38.76281,38.85168,38.94816,39.05124,39.1528,39.26991,39.32249,39.43506,39.57579,39.65041,39.73356,39.85791,39.95043,40.05531,40.15178,40.2527,40.35819,40.48193,40.51895,40.67556,40.77414,40.8407,40.95781,41.0482,41.12876,41.22121,41.32159,41.44851,41.60285,41.66608,41.75046,41.87108,41.97487,42.08975,42.17465,42.24635,42.34493,42.4115,42.54405,42.64524,42.74818,42.82163,42.96581,43.07254,43.16465,43.26347,43.36763,43.44188,43.54245,43.67424,43.75307,43.84677,43.9823,44.04472,44.1389,44.26609,44.3628,44.50144,44.5703,44.66803,44.7677,44.84447,44.94529,45.08945,45.17259,45.26704,45.42054,45.46636,45.58339,45.66375,45.76715,45.89239,45.96322,46.09351,46.1411,46.24783,46.33849,46.43816,46.53589,46.64138,46.79183,46.87891,46.96523,47.07131,47.12389,47.25644,47.33498,47.44564,47.58754,47.65884,47.81281,47.88801,47.99019,48.08914,48.17554,48.28979,48.37294,48.48719,48.56213,48.63593,48.69469,48.83658,48.98074,49.083,49.15833,49.258,49.35873,49.45787,49.54665,49.65476,49.73053,49.82886,49.92881,50.05439,50.15483,50.26548,50.33205,50.43063,50.52608,50.62425,50.72913,50.82408,50.92953,51.05088,51.12765,51.27768,51.37263,51.47751,51.55248,51.64806,51.74954,51.83628,51.95339,52.05495,52.15803,52.25079,52.3767,52.42428,52.57409,52.68043,52.77205,52.87535,52.94343,53.0483,53.14408,53.25443,53.35949,53.40708,53.57222,53.67333,53.77425,53.87072,54.02174,54.1157,54.21949,54.29555,54.38987,54.44615,54.55124,54.73289,54.79252,54.89804,54.97787,55.09275,55.19654,55.27331,55.37266,55.46477,55.56587,55.67261,55.76327,55.91987,55.99007,56.08502,56.16179,56.26487,56.36881,56.4719,56.54867,56.64834,56.73689,56.84717,56.93927,57.03315,57.14709,57.33407,57.33407,57.46839,57.56086,57.65582,57.73896,57.83567,57.92207,58.00881,58.11946,58.21442,58.30769,58.46249,58.55609,58.65988,58.73413,58.83829,58.93343,59.03456,59.14984,59.22661,59.33149,59.44528,59.53761,59.69026,59.75683,59.83216,59.95651,60.07077,60.15391,60.25358,60.365,60.40909,60.52824,60.67305,60.77658,60.84865,60.96256,61.05356,61.14395,61.26106,61.33236,61.48453,61.55251,61.64156,61.7802,61.84906,61.97515,62.04645,62.17901,62.24385,62.34738,62.45135,62.55355,62.652,62.7212,62.83185,62.97893,63.07683,63.18062,63.25008,63.351,63.4521,63.55068,63.65172,63.77385,63.85099,63.92176,64.10415,64.20525,64.27433,64.34389,64.46922,64.54973,64.64763,64.75142,64.8663,64.97399,65.07739,65.12148,65.26895,65.37627,65.46928,65.54368,65.6517,65.74236,65.84374,65.97345,66.04475,66.11534,66.27194,66.39167,66.46739,66.56145,66.66818,66.73559,66.8176,66.91545,67.01945,67.12139,67.20951,67.36439,67.4611,67.54424,67.63919,67.74164,67.84274,67.94913,68.00789,68.13224,68.21898,68.32964,68.4203,68.57462,68.59024,68.73453,68.83674,68.93518,69.03827,69.11504,69.23566,69.31243,69.4065,69.56376,69.66669,69.73529,69.85699,69.96286,70.06559,70.16669,70.22219,70.33706,70.44086,70.53876,70.68583,70.78231,70.86051,70.96413,71.06634,71.14948,71.25256,71.32934,71.43125,71.58189,71.68529,71.79298,71.8823,71.97833,72.05924,72.16016,72.25663,72.3563,72.43648,72.55513,72.72028,72.78143,72.87688,72.97546,73.04203,73.15269,73.25105,73.32808,73.42254,73.52155,73.63003,73.77984,73.87285,73.96932,74.05423,74.14918,74.24565,74.35222,74.44768,74.54626,74.64729,74.77797,74.87343,74.98,75.07647,75.17142,75.27879,75.35658,75.45081,75.5453,75.65555,75.74699,75.82108,75.91737,76.04172,76.1466,76.26676,76.36897,76.46967,76.57423,76.65802,76.75035,76.84959,76.96902,77.0721,77.16642,77.24732,77.36381,77.46837,77.55702,77.67351,77.75442,77.87877,78.01174,78.09371,78.16683,78.26152,78.34242,78.46851,78.53982,78.64655,78.76662,78.83832,78.94471,79.03624,79.15054,79.29075,79.32521,79.46711,79.56382,79.66619,79.78886,79.86563,79.93988,80.04404,80.11061,80.29047,80.38156,80.49112,80.57426,80.66921,80.75411,80.85899,80.95477,81.06116,81.16226,81.2353,81.33839,81.43643,81.53433,81.68141,81.73691,81.88891,81.95971,82.0544,82.14506,82.26941,82.36193,82.46681,82.53338,82.62672,82.73306,82.82558,82.96415,83.05481,83.16155,83.25221,83.35894,83.4597,83.5507,83.647,83.71585,83.80651,83.95446,84.0376,84.16196,84.25627,84.32906,84.43613,84.52756,84.64833,84.823,84.87058,84.9796,85.05409,85.14475,85.28665,85.28665,85.4518,85.54964,85.65185,85.7503,85.85338,85.95142,86.05451,86.14882,86.22865,86.3938,86.47363,86.57365,86.6721,86.74679,86.85745,86.9524,87.04949,87.14473,87.25597,87.36454,87.42417,87.57399,87.67314,87.77637,87.86812,87.92757,88.01455,88.11724,88.21978,88.3451,88.42824,88.5526,88.63934,88.74999,88.84065,88.93534,89.02829,89.11717,89.21364,89.31672,89.44473,89.53539,89.68804,89.76219,89.87207,89.96202,90.0691,90.15564,90.26821,90.36424,90.43145,90.54759,90.64254,90.75742,90.86121,90.9573,91.06917,91.16169,91.26279,91.33728,91.44548,91.53859,91.64661,91.79192,91.89159,91.95815,92.06232,92.13656,92.24036,92.38553,92.45831,92.53509,92.637,92.73574,92.83359,92.93217,93.11361,93.19143,93.26499,93.3593,93.46238,93.55886,93.65978,93.75384,93.83327,93.98478,94.08263,94.18121,94.24778,94.35844,94.45887,94.55366,94.68762,94.75488,94.83578,94.95641,95.10449,95.18355,95.28487,95.35493,95.4514,95.55232,95.65992,95.75982,95.84982,95.92923,96.02607,96.18575,96.28222,96.38531,96.47962,96.56052,96.67528,96.75662,96.84895,96.9547,97.06762,97.14439,97.23072,97.38937,97.50425,97.57472,97.66767,97.74814,97.85302,97.94368,98.04726,98.14914,98.25154,98.34944,98.41975,98.6014,98.67637,98.79502,98.89574,98.99719,99.04691,99.14002,99.24622,99.34068,99.44465,99.56246,99.66879,99.71993,99.84204,99.94296,100.04407,100.12607,100.22126,100.31987,100.41386,100.53096,100.66803,100.73846,100.84067,100.93121,101.05904,101.16599,101.24506,101.34493,101.44072,101.58731,101.69687,101.78001,101.85678,101.96921,102.06474,102.16052,102.26691,102.33731,102.43844,102.54618,102.63672,102.74526,102.86277,102.88716,103.08455,103.16546,103.26243,103.36668,103.46506,103.53703,103.64132,103.73131,103.83771,103.92774,104.08268,104.15704,104.26056,104.3673,104.45796,104.54862,104.65535,104.75645,104.88458,104.9353,105.0635,105.16352,105.24335,105.3265,105.43158,105.52941,105.62386,105.7625],"checkpoints":{"0":{"s":0.0,"y":618.5000008257766,"v":-2.2471827666839714},"10":{"s":2507.1890151743264,"y":667.1944398953956,"v":0.5439749056805114},"20":{"s":5422.064015174326,"y":825.5637699648518,"v":-1.847566264195468},"30":{"s":8755.189015174325,"y":705.3726608382729,"v":-0.5205333884628556}},"tailSpeed":382.5};
-const BUILD=SOURCE.version, $=id=>document.getElementById(id);
-const store={get(k){try{return localStorage.getItem(k)}catch(_){return null}},set(k,v){try{localStorage.setItem(k,String(v))}catch(_){}}};
-const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
-function lerpArray(t,ts,vs){if(t<=ts[0])return vs[0];if(t>=ts[ts.length-1])return vs[vs.length-1];let a=0,b=ts.length-1;while(b-a>1){const m=(a+b)>>1;if(ts[m]<=t)a=m;else b=m;}return vs[a]+(vs[b]-vs[a])*(t-ts[a])/(ts[b]-ts[a]);}
-function progress(t){if(t<=0)return 0;if(t>=SOURCE.duration)return SOURCE.progress.at(-1)+(t-SOURCE.duration)*SOURCE.tailSpeed;return lerpArray(t,SOURCE.times,SOURCE.progress);}
-function clockAt(s){if(s<=0)return 0;if(s>=SOURCE.progress.at(-1))return SOURCE.duration+(s-SOURCE.progress.at(-1))/SOURCE.tailSpeed;let a=0,b=SOURCE.duration;for(let i=0;i<40;i++){let m=(a+b)/2;if(progress(m)<s)a=m;else b=m;}return (a+b)/2;}
-function speedAt(t){return (progress(t+.05)-progress(Math.max(0,t-.05)))/(t<.05?t+.05:.1);}
-const DEFAULTS=Object.freeze({route:'video',speed:1,checkpoint:0,mode:'challenge',layout:'screen',guide:false,sound:true});
-/** Physics is integrated against shared scrolling distance. This keeps the
- * measured flap-height approximately constant as the whole game speeds up.
- * A new press REPLACES the vertical slope, rather than adding continuous thrust.
- * Gravity/jump are reconstructed parameters, not Playus source-code constants.
- */
-class FlapEngine{
- constructor(options={}){this.options={...DEFAULTS,...options};this.reset();}
- reset(){
-  const cp=SOURCE.checkpoints[String(this.options.checkpoint)]||SOURCE.checkpoints['0'];
-  this.t=this.options.checkpoint;this.s=progress(this.t);this.y=cp.y;this.v=cp.v;
-  if(this.options.route!=='video'){this.y=630;this.v=SOURCE.jump;}
-  this.state='ready';this.score=0;this.passed=0;this.taps=0;this.collided=null;this.playTime=0;this.generated=false;
-  this.gates=[];this.seed=Number.isInteger(this.options.seed)?this.options.seed>>>0:(this.options.route==='video'?3917:(Math.random()*4294967296)>>>0);this.lastGate=0;this.nextN=1;
-  if(this.options.route==='video')this.gates=SOURCE.gates.map(g=>({...g}));
-  if(this.gates.length){this.lastGate=this.gates.at(-1).s;this.nextN=this.gates.at(-1).n+1;}
-  this.ensure(this.s+2200);this.baseline=this.gates.filter(g=>g.s-this.s<SOURCE.playerX).length;this.passed=this.baseline;
-  this.startClock=this.t;this.eligible=this.options.route==='video'&&this.options.speed===1&&this.options.checkpoint===0&&this.options.mode==='challenge'&&!this.options.guide;
- }
- rng(){this.seed=(Math.imul(1664525,this.seed)+1013904223)>>>0;return this.seed/4294967296;}
- ensure(s){
-  if(this.options.route==='free')return;
-  if(!this.gates.length)this.lastGate=this.s+730;
-  while(this.lastGate<s){
-   const n=this.nextN++,first=!this.gates.length;const center=first?this.lastGate:this.lastGate+349;
-   const gap=this.options.route==='video'?150:Math.max(150,255-(n-1)*4);
-   const prev=this.gates.at(-1),prevY=prev?(prev.top+prev.bottom)/2:685;
-   const cy=clamp(prevY+(this.rng()-.5)*330,440+gap/2,925-gap/2);
-   this.gates.push({s:center,top:cy-gap/2,bottom:cy+gap/2,w:68,n,generated:true});this.lastGate=center;
-  }
- }
- begin(){this.state='running';}
- flap(){if(this.state!=='running')return false;this.v=SOURCE.jump;this.taps++;return true;}
- collision(s,y){
-  if(y-SOURCE.radius<=SOURCE.ceiling)return {kind:'ceiling'};
-  if(y+SOURCE.radius>=SOURCE.floor)return {kind:'floor'};
-  for(const g of this.gates){
-   const dx=Math.max(0,Math.abs(SOURCE.playerX-(g.s-s))-g.w/2);if(dx>SOURCE.radius)continue;
-   if(y<=g.top)return {kind:'upper',gate:g.n};if(y>=g.bottom)return {kind:'lower',gate:g.n};
-   if(dx*dx+(y-g.top)**2<=SOURCE.radius**2)return {kind:'upper',gate:g.n};
-   if(dx*dx+(g.bottom-y)**2<=SOURCE.radius**2)return {kind:'lower',gate:g.n};
-  }return null;
- }
- updateScore(){
-  // A point is observed when the obstacle centre crosses the square's X.
-  let n=this.baseline;for(const g of this.gates)if(g.s-this.s<SOURCE.playerX+1e-7)n=Math.max(n,g.n);
-  this.passed=n;this.score=Math.max(0,n-this.baseline);
-  this.generated=this.options.route==='video'&&this.s>progress(SOURCE.duration);
- }
- advanceTo(newT){
-  if(this.state!=='running'||!Number.isFinite(newT)||newT<this.t)return;
-  const targetS=progress(newT);this.ensure(targetS+1700);
-  while(targetS-this.s>1e-8){
-   const ds=Math.min(2,targetS-this.s),y0=this.y,v0=this.v,s0=this.s;
-   const nextY=y0+v0*ds+.5*SOURCE.g*ds*ds,hit=this.collision(s0+ds,nextY);
-   if(hit){
-    let lo=0,hi=ds;for(let k=0;k<20;k++){const q=(lo+hi)/2;if(this.collision(s0+q,y0+v0*q+.5*SOURCE.g*q*q))hi=q;else lo=q;}
-    this.s=s0+hi;this.y=y0+v0*hi+.5*SOURCE.g*hi*hi;this.v=v0+SOURCE.g*hi;this.t=clockAt(this.s);this.collided=hit;this.state='over';this.updateScore();this.playTime=(this.t-this.startClock)/this.options.speed;return;
-   }
-   this.s+=ds;this.y=nextY;this.v+=SOURCE.g*ds;
-  }
-  this.t=newT;this.updateScore();this.playTime=(this.t-this.startClock)/this.options.speed;
-  // Retain an ample rewind buffer; memory is bounded in unlimited practice.
-  if(this.gates.length>90)this.gates=this.gates.filter(g=>g.s>this.s-4000);
- }
- snapshot(){return {t:this.t,s:this.s,y:this.y,v:this.v,score:this.score,passed:this.passed,baseline:this.baseline,taps:this.taps,state:this.state,playTime:this.playTime,collided:this.collided,generated:this.generated};}
- restore(p){Object.assign(this,p);this.state='ready';this.collided=null;}
+const BUILD='DRL-20261004-01';
+const GLYPHS={"0":{"d":"M343 -14C521 -14 651 119 651 350C651 581 521 714 343 714C164 714 34 581 34 350C34 119 164 -14 343 -14ZM343 148C279 148 233 203 233 350C233 497 279 552 343 552C406 552 452 497 452 350C452 203 406 148 343 148Z","w":685},"1":{"d":"M6 700V547H136V0H334V700Z","w":405},"2":{"d":"M305 157 437 279C537 371 556 433 556 501C556 631 445 714 284 714C146 714 47 656 -6 568L141 486C169 531 215 554 266 554C326 554 356 527 356 482C356 453 348 421 292 369L30 124V0H575V157Z","w":599},"3":{"d":"M393 420 538 576V700H32V547H308L183 412V287H266C342 287 373 261 373 219C373 172 329 146 262 146C196 146 124 166 68 204L-4 55C68 10 171 -14 268 -14C479 -14 573 100 573 219C573 319 511 395 393 420Z","w":603},"4":{"d":"M694 291H590V410H403V291H261L546 700H341L27 263V134H397V0H590V134H694Z","w":700},"5":{"d":"M296 445H249L258 547H540V700H94L59 291H249C356 291 385 263 385 220C385 173 340 146 273 146C206 146 136 166 79 204L8 55C79 10 182 -14 279 -14C490 -14 584 100 584 225C584 349 503 445 296 445Z","w":607},"6":{"d":"M392 446C326 446 273 428 234 394C244 501 311 557 411 557C456 557 500 549 540 521L612 663C561 696 485 714 406 714C185 714 34 575 34 331C34 104 162 -14 358 -14C511 -14 633 79 633 225C633 359 524 446 392 446ZM346 127C286 127 248 163 248 215C248 268 288 304 345 304C402 304 441 270 441 216C441 161 402 127 346 127Z","w":649},"7":{"d":"M23 700V435H192V543H376L140 0H356L603 576V700Z","w":632},"8":{"d":"M538 369C585 402 613 450 613 510C613 634 499 714 334 714C169 714 55 634 55 510C55 450 83 402 130 369C67 333 30 278 30 206C30 72 153 -14 334 -14C515 -14 638 72 638 206C638 278 601 333 538 369ZM334 575C383 575 418 548 418 501C418 455 384 428 334 428C284 428 251 455 251 501C251 548 285 575 334 575ZM334 125C271 125 229 158 229 212C229 266 271 299 334 299C397 299 439 266 439 212C439 158 397 125 334 125Z","w":669},"9":{"d":"M290 714C138 714 16 621 16 475C16 341 125 254 257 254C323 254 375 272 414 305C403 199 337 143 238 143C193 143 149 151 109 179L37 37C88 4 164 -14 242 -14C464 -14 615 125 615 369C615 596 487 714 290 714ZM304 396C247 396 208 430 208 484C208 539 247 573 303 573C363 573 401 537 401 485C401 432 361 396 304 396Z","w":649}};
+// Coordinates are measured in the supplied 512x1128 recording. Android OS
+// chrome is excluded with an explicit approximate top crop (29) and bottom (59).
+// That crop is a display model, NOT a claim about the user's iPhone safe areas.
+const REF=Object.freeze({w:512,h:1040,cropY:29,rollMs:1500,feedbackMs:600,
+ dice:[[5,5,6,6],[3,4,1,6],[2,1,2,3]],cumulativeMs:[730,2240,3460],
+ centers:[[182,415],[330,415],[182,563],[330,563]],size:98,
+ keysX:[40,187,336],keysY:[747,823,899,976],keyW:136,keyH:64});
+const $=id=>document.getElementById(id);
+const store={get(k){try{return localStorage.getItem(k);}catch(_){return null;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(_){return false;}},json(k,def){try{const v=JSON.parse(this.get(k));return v===null?def:v;}catch(_){return def;}}};
+let history=store.json('diceSolo.v1.history',[]);if(!Array.isArray(history))history=[];
+history=history.filter(r=>r&&Number.isFinite(r.totalMs)&&r.totalMs>=0&&['reference','balanced','uniform'].includes(r.route)).slice(-40);
+let bests=store.json('diceSolo.v1.bests',{});if(!bests||typeof bests!=='object'||Array.isArray(bests))bests={};
+const canvas=$('board'),ctx=canvas.getContext('2d',{alpha:false});
+let sx=1,sy=1,ox=0,oy=0,W=1,H=1,D=1,raf=null;
+let phase='home',phaseBeforePause='home',phaseStart=0,answerStart=0,pausedAt=0;
+let cfg={route:'reference',mode:'trial',layout:'screen',sound:false};
+let seq=[],round=0,input='',totalMs=0,results=[],keyEvents=[],firstInputAt=null,correctAt=0;
+let eligibility=true,usedHint=false,statusMessage='',statusUntil=0,pausedMessage='',keyboardAge=0;
+let heldPointers=new Map(),lastPointerTime=-Infinity,manualTime=null;
+const IS_TEST=new URLSearchParams(location.search).has('test');
+const now=()=>IS_TEST&&manualTime!==null?manualTime:performance.now();
+const running=()=>['rolling','answer','feedback'].includes(phase);
+function secs(ms,digits=2){return (Math.max(0,ms)/1000).toFixed(digits).replace('.',',');}
+function bestFor(route){const b=bests[route];return Number.isFinite(b)&&b>0?b:null;}
+function point(x,y){return {x:ox+x*sx,y:oy+(y-REF.cropY)*sy};}
+function schedule(){if(raf===null&&running()&&manualTime===null)raf=requestAnimationFrame(frame);}
+function cancel(){if(raf!==null)cancelAnimationFrame(raf);raf=null;}
+function announce(text){$('accessibleState').textContent=text;}
+function rngInt(n){if(!Number.isInteger(n)||n<=0)throw new Error('Geçersiz rastgele aralık');if(window.crypto&&crypto.getRandomValues){const a=new Uint32Array(1),limit=4294967296-(4294967296%n);do{crypto.getRandomValues(a);}while(a[0]>=limit);return a[0]%n;}return Math.floor(Math.random()*n);}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=rngInt(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;}
+const bySum=Array.from({length:25},()=>[]);
+for(let a=1;a<=6;a++)for(let b=1;b<=6;b++)for(let c=1;c<=6;c++)for(let d=1;d<=6;d++)bySum[a+b+c+d].push([a,b,c,d]);
+function makeSequence(route,learn=false){
+ if(route==='reference'){return learn?[REF.dice[rngInt(3)].slice()]:REF.dice.map(d=>d.slice());}
+ if(route==='uniform'){return Array.from({length:learn?1:3},()=>Array.from({length:4},()=>rngInt(6)+1));}
+ // Training-only balanced groups. Original selection probabilities are unknown.
+ const sums=shuffle([rngInt(6)+4,rngInt(10)+10,rngInt(5)+20]);
+ return (learn?sums.slice(0,1):sums).map(s=>bySum[s][rngInt(bySum[s].length)].slice());
 }
-const game=$('game'),canvas=$('canvas'),ctx=canvas.getContext('2d',{alpha:false});
-let engine=new FlapEngine(),options={...DEFAULTS},mode='home',pausedMode='play',raf=0,stamp=0,pointerId=null,heldKey=false,watch=false,eventCursor=0,history=[],historyAt=-99;
-let width=1,height=1,dpr=1,sx=1,sy=1,ox=0,oy=0,best=Math.max(0,Number(store.get('flapSolo.v1.best'))||0),audio=null,audioMaster=null;
-function updateBest(){ $('bestHome').textContent=best||'—'; }
-function readOptions(){return {route:$('route').value,speed:Number($('speed').value),checkpoint:Number($('checkpoint').value),mode:$('mode').value,layout:$('layout').value,guide:$('guide').checked,sound:$('sound').checked};}
-function cancel(){if(raf)cancelAnimationFrame(raf);raf=0;}
-function wakeAudio(){
- if(!options.sound)return;try{if(!audio){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audio=new AC();audioMaster=audio.createGain();audioMaster.gain.value=.13;audioMaster.connect(audio.destination);}if(audio.state==='suspended')audio.resume().catch(()=>{});}catch(_){}
+function readSettings(){cfg={route:$('route').value,mode:$('mode').value,layout:$('layout').value,sound:$('sound').checked};}
+function refreshHome(){
+ const route=$('route').value,b=bestFor(route);$('homeBest').textContent=b?secs(b)+' sn':'—';
+ const last=history.at(-1);$('homeLast').textContent=last?secs(last.totalMs)+' sn':'—';
+ $('routeNote').textContent=route==='reference'?'Kayıttaki aynı zar yerleşimlerini tekrar eder. Buradaki rekor, ezberlenmemiş yeni bir turun eşdeğeri değildir.':route==='balanced'?'Bir düşük, bir orta, bir yüksek toplam; sıralama ve zar yerleri yeniden üretilir. Bu dağılım antrenman tercihidir, özgün Playus üretim kuralı değildir.':'Dört bağımsız 1–6 değeri üretilir. Özgün oyundaki dengeli tur seçiminin kopyası değildir.';
+ $('start').textContent=$('mode').value==='trial'?'PROVAYA BAŞLA':'ÖĞRENMEYE BAŞLA';
 }
-function tone(type='flap'){
- if(!options.sound||!audio||audio.state!=='running')return;
- try{const o=audio.createOscillator(),g=audio.createGain(),t=audio.currentTime;o.type=type==='flap'?'sine':'triangle';o.frequency.setValueAtTime(type==='flap'?600:750,t);o.frequency.exponentialRampToValueAtTime(type==='flap'?260:1000,t+.065);g.gain.setValueAtTime(.001,t);g.gain.linearRampToValueAtTime(.7,t+.003);g.gain.exponentialRampToValueAtTime(.001,t+.09);o.connect(g);g.connect(audioMaster);o.start(t);o.stop(t+.1);o.onended=()=>{o.disconnect();g.disconnect();};}catch(_){}
+function clearHeld(){for(const el of heldPointers.values())el.classList.remove('held');heldPointers.clear();}
+function startSession(){
+ cancel();clearHeld();readSettings();seq=makeSequence(cfg.route,cfg.mode==='learn');round=0;input='';totalMs=0;results=[];eligibility=cfg.mode==='trial';usedHint=false;statusMessage='';
+ $('home').hidden=true;$('game').hidden=false;$('overlay').hidden=true;$('pause').hidden=false;$('practiceReveal').hidden=cfg.mode!=='learn';
+ phase='ready';resize(false);roll(now());
 }
-function resize(){
- const b=canvas.getBoundingClientRect();width=Math.max(1,b.width);height=Math.max(1,b.height);dpr=Math.min(devicePixelRatio||1,3);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
- const cs=getComputedStyle(game),st=parseFloat(cs.paddingTop)||0,sb=parseFloat(cs.paddingBottom)||0,avail=Math.max(80,height-st-sb);
- if(options.layout==='reference'||width/avail>.85){sx=sy=Math.min(width/SOURCE.vw,avail/SOURCE.vh);ox=(width-SOURCE.vw*sx)/2;oy=st+(avail-SOURCE.vh*sy)/2;}
- else {sx=width/SOURCE.vw;sy=avail/SOURCE.vh;ox=0;oy=st;}
- render();
-}
-function drawRound(x,y,w,h,r,fill){ctx.fillStyle=fill;ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,r);else ctx.rect(x,y,w,h);ctx.fill();}
-function drawText(s,x,y,size,fill='#fcf3e9',weight=800){ctx.fillStyle=fill;ctx.font=weight+' '+size+'px -apple-system,BlinkMacSystemFont,Arial,sans-serif';ctx.textBaseline='middle';ctx.textAlign='center';ctx.fillText(s,x,y);}
-function angleAt(t){if(t<=SOURCE.duration)return lerpArray(t,SOURCE.times,SOURCE.sourceAngle);return SOURCE.sourceAngle.at(-1)+3*(t-SOURCE.duration);}
-function render(){
- if(game.hidden)return;
- ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#611a9e';ctx.fillRect(0,0,width,height);ctx.save();ctx.translate(ox,oy);ctx.scale(sx,sy);
- const e=engine;ctx.save();ctx.beginPath();ctx.rect(0,SOURCE.ceiling,SOURCE.vw,SOURCE.floor-SOURCE.ceiling);ctx.clip();
- ctx.fillStyle='#ed6882';for(const g of e.gates){const x=g.s-e.s-g.w/2;if(x+g.w<0||x>SOURCE.vw)continue;ctx.fillRect(x,SOURCE.ceiling,g.w,g.top-SOURCE.ceiling);ctx.fillRect(x,g.bottom,g.w,SOURCE.floor-g.bottom);}
- if(options.guide&&!watch){
-  const next=e.gates.find(g=>g.s-e.s+g.w/2>SOURCE.playerX);
-  if(next){const x=next.s-e.s,cy=(next.top+next.bottom)/2;ctx.setLineDash([6,7]);ctx.strokeStyle='#fbe6a291';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(SOURCE.playerX,cy);ctx.lineTo(x,cy);ctx.stroke();ctx.setLineDash([]);}
-  ctx.strokeStyle='#fff3b399';ctx.lineWidth=2;ctx.setLineDash([3,5]);ctx.beginPath();ctx.moveTo(SOURCE.playerX,e.y);for(let k=1;k<=30;k++){const ds=k*3;ctx.lineTo(SOURCE.playerX+ds,e.y+e.v*ds+.5*SOURCE.g*ds*ds);}ctx.stroke();ctx.setLineDash([]);
- }
- ctx.save();ctx.translate(SOURCE.playerX,e.y);
- // Square stays square on tall/narrow screens. Physics still uses reference units.
- ctx.scale(1,sx/sy);ctx.rotate(angleAt(e.t));drawRound(-20,-20,40,40,3,'#faf3ec');ctx.restore();
- ctx.restore();
- ctx.fillStyle='#ed6882';ctx.beginPath();ctx.moveTo(0,SOURCE.ceiling);ctx.quadraticCurveTo(5,SOURCE.ceiling-12,18,SOURCE.ceiling-12);ctx.lineTo(494,SOURCE.ceiling-12);ctx.quadraticCurveTo(507,SOURCE.ceiling-12,512,SOURCE.ceiling);ctx.closePath();ctx.fill();ctx.fillRect(0,SOURCE.floor,512,12);
- ctx.save();ctx.translate(256,SOURCE.ceiling+66);ctx.scale(1.2,1);drawText(String(e.score),0,0,72,'#faf3ec',900);ctx.restore();
- const values=[['SEN',watch?'Gösterim':e.score+' puan','#edb948'],['EN',best+' puan','#766190'],['30','Video skoru','#a48ac1'],[options.speed.toFixed(2)+'×','Tempo','#8e69b1']];
- values.forEach((v,i)=>{const x=126+i*84;ctx.fillStyle=v[2];ctx.beginPath();ctx.arc(x,54,29,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#fbe9ee55';ctx.lineWidth=2;ctx.stroke();drawText(v[0],x,54,i===3?12:17,'#fff4de');drawRound(x-34,77,68,24,9,'#dac6e4');drawText(v[1],x,89,11,'#382342',750);});
- const badge=watch?'Ölçülen uçuş · puansız':options.route==='free'?'Engelsiz uçuş · çalışma':e.generated?'Üretilmiş devam · son tempo':options.route==='random'?'Rastgele antrenman':'Video provası · sınırsız tekrar';
- drawRound(111,118,290,34,17,watch?'#473467':'#27618b');drawText(badge,256,135,13,'#f0e9f8',650);
- ctx.restore();
- $('phaseLabel').textContent=watch?'YENİDEN ÇIKARILMIŞ BASIŞLAR · GERÇEK PARMAK KAYDI DEĞİL':(options.checkpoint>0?options.checkpoint+'. saniye başlangıcı · puan sıfırdan':'');
- $('scoreAccessible').textContent=e.score+' puan';$('soundToggle').style.opacity=options.sound?'1':'.5';
-}
-function home(){cancel();mode='home';engine.state='closed';pointerId=null;heldKey=false;watch=false;game.hidden=true;$('home').hidden=false;$('settingsOverlay').hidden=true;$('resultOverlay').hidden=true;$('readyBanner').hidden=true;updateBest();preview();}
-function settings(){cancel();mode='settings';pointerId=null;heldKey=false;$('resultOverlay').hidden=true;$('settingsOverlay').hidden=false;$('settingsClose').focus();}
-function startSession(isWatch=false){
- cancel();options=readOptions();watch=isWatch;
- if(watch)options={...options,route:'video',speed:1,checkpoint:0,mode:'challenge',guide:false};
- engine=new FlapEngine(options);eventCursor=0;history=[];historyAt=-99;pointerId=null;heldKey=false;mode=watch?'watch':'ready';
- $('home').hidden=true;game.hidden=false;$('settingsOverlay').hidden=true;$('resultOverlay').hidden=true;$('readyBanner').hidden=watch;$('readyBanner').innerHTML='<strong>Başlamak için dokun</strong><span>Her yeni dokunuş yukarı zıplatır.<br>Parmağını kaldır, sonra yeniden dokun.</span>';$('pause').hidden=false;
- resize();wakeAudio();
- if(watch){engine.begin();engine.flap();stamp=performance.now();schedule();}else render();
-}
-function beginReady(){if(mode!=='ready')return;mode=watch?'watch':'play';engine.begin();engine.flap();tone();$('readyBanner').hidden=true;stamp=performance.now();saveHistory();render();schedule();}
-function saveHistory(){if(watch)return;if(engine.t-historyAt>=.035){history.push(engine.snapshot());historyAt=engine.t;if(history.length>150)history.shift();}}
-function advanceGame(dt){
- if(!['play','watch'].includes(mode))return;const target=engine.t+dt*options.speed;
- if(watch){while(eventCursor<SOURCE.taps.length&&SOURCE.taps[eventCursor]<=target+1e-8){const tt=SOURCE.taps[eventCursor++];engine.advanceTo(tt);if(engine.state!=='running')break;engine.flap();tone();}}
- if(engine.state==='running')engine.advanceTo(target);
- saveHistory();if(engine.state==='over'){finish();return;}
- // Recorded controls end with the source. Do not fabricate automatic play in extension.
- if(watch&&engine.t>SOURCE.duration+.15){finish(true);}
-}
-function advanceWall(ts){const dt=Math.max(0,(ts-stamp)/1000);stamp=Math.max(stamp,ts);if(dt>.3){pauseGame();return;}advanceGame(dt);}
-function schedule(){if(!raf&&['play','watch'].includes(mode))raf=requestAnimationFrame(frame);}
-function frame(ts){raf=0;if(!['play','watch'].includes(mode))return;advanceWall(ts);render();schedule();}
-function press(){
- wakeAudio();if(mode==='ready'){beginReady();return;}
- if(mode!=='play')return;advanceWall(performance.now());if(mode!=='play'||engine.state!=='running')return;
- engine.flap();tone();saveHistory();render();
-}
-function pointerDown(e){
- if(e.button!==undefined&&e.button!==0)return;e.preventDefault();if(pointerId!==null||e.isPrimary===false)return;pointerId=e.pointerId;
- try{canvas.setPointerCapture(e.pointerId);}catch(_){}press();
-}
-function pointerEnd(e){if(e.pointerId===pointerId){pointerId=null;try{canvas.releasePointerCapture(e.pointerId);}catch(_){}}}
-if(window.PointerEvent){canvas.addEventListener('pointerdown',pointerDown,{passive:false});canvas.addEventListener('pointerup',pointerEnd);canvas.addEventListener('pointercancel',pointerEnd);canvas.addEventListener('lostpointercapture',()=>{pointerId=null;});}
-else{canvas.addEventListener('touchstart',e=>{e.preventDefault();if(pointerId!==null)return;pointerId=e.changedTouches[0].identifier;press();},{passive:false});canvas.addEventListener('touchend',()=>{pointerId=null});canvas.addEventListener('touchcancel',()=>{pointerId=null});canvas.addEventListener('mousedown',e=>{if(!('ontouchstart' in window)){e.preventDefault();press();}});}
-canvas.addEventListener('contextmenu',e=>e.preventDefault());
-function showResult(title,reason,tag,canContinue){
- $('resultHeading').textContent=title;$('resultReason').textContent=reason;$('resultTag').textContent=tag;$('resultContinue').hidden=!canContinue;
- const vals=[[engine.score,options.checkpoint?'Bu bölümdeki puan':'Puan'],[engine.playTime.toFixed(1)+' sn','Oynanan süre'],[engine.taps,'Zıplama'],[engine.passed,'Geçilen kapı sırası']];$('resultStats').innerHTML=vals.map(v=>'<div><b>'+v[0]+'</b>'+v[1]+'</div>').join('');
- $('resultOverlay').hidden=false;$('resultNote').textContent=watch?'Bu gösterim puanını rekoruna yazmaz. Uçuş, ölçülmüş model ve yeniden çıkarılmış basış anlarıyla hesaplandı.':engine.eligible?'Bu cihazdaki 1× prova rekorun: '+best+'. Playus sıralamasına gönderilmez.':'Antrenman ayarı: 1× rehbersiz prova rekoruna karışmaz.';
- $('resultContinue').textContent=mode==='paused'?'DEVAM ET':'SON BÖLÜMÜ TEKRARLA';
-}
-function finish(demoEnd=false){
- cancel();pointerId=null;heldKey=false;mode='over';$('pause').hidden=true;
- if(engine.eligible&&!watch&&engine.score>best){best=engine.score;store.set('flapSolo.v1.best',best);updateBest();}
- const hit=engine.collided||{},text={upper:'Üst engele temas ettin. Peş peşe basışları azalt; yükselişini açıklığın içinde tut.',lower:'Alt engele temas ettin. Düşüş sırasında daha erken bir dokunuşla yukarı hız kazan.',ceiling:'Tavana temas ettin. Gereksiz art arda basışlar yükselişi yeniden başlatır.',floor:'Zemine temas ettin. Bir sonraki dokunuşu zemine kadar bekletme.'};
- showResult(watch?'Kayıt gösterimi bitti':engine.score+' PUAN',demoEnd?'Ölçülen kontrol dizisinin sonuna gelindi.':(text[hit.kind]||'Koşu tamamlandı.'),watch?'PUANSIZ GÖSTERİM':options.mode==='practice'?'HATAYI İNCELE':'PROVA SONU',!watch&&options.mode==='practice'&&history.length>0);
- render();
-}
-function pauseGame(){
- if(!['play','watch','ready'].includes(mode))return;pausedMode=mode;mode='paused';cancel();pointerId=null;heldKey=false;
- showResult('Duraklatıldı.','Oyun saati ve hareket aynı yerde bekliyor.','ARA',true);render();
-}
-function continueGame(){
- if(mode==='paused'){mode=pausedMode;$('resultOverlay').hidden=true;pointerId=null;heldKey=false;stamp=performance.now();render();schedule();return;}
- if(mode==='over'&&options.mode==='practice'&&!watch&&history.length){
-  const target=Math.max(engine.startClock,engine.t-1.5);let p=history[0];for(const h of history){if(h.t<=target&&h.state==='running')p=h;}
-  engine.restore(p);history=history.filter(h=>h.t<=p.t);historyAt=-99;engine.eligible=false;mode='ready';$('resultOverlay').hidden=true;$('pause').hidden=false;$('readyBanner').hidden=false;$('readyBanner').innerHTML='<strong>Son bölüm geri sarıldı</strong><span>Devam dokunuşun aynı zamanda bir zıplama.<br>Geri alınan bölümün puanı da geri alındı.</span>';render();
+function roll(t){input='';firstInputAt=null;keyEvents=[];statusMessage='';phase='rolling';phaseStart=t;answerStart=0;updateKeys();announce('Tur '+(round+1)+'. Zarlar dönüyor.');render(t);schedule();}
+function frame(){raf=null;const t=now();tick(t);render(t);schedule();}
+function tick(t){
+ if(phase==='rolling'&&t-phaseStart>=REF.rollMs-1e-6){phase='answer';phaseStart=t;answerStart=t;updateKeys();announce('Tur '+(round+1)+'. Toplamı yaz.');}
+ else if(phase==='feedback'&&t-phaseStart>=REF.feedbackMs-1e-6){
+  if(round+1>=seq.length){finish();return;}round++;roll(t);
  }
 }
-$('openSettings').addEventListener('click',settings);$('settingsClose').addEventListener('click',home);$('prepare').addEventListener('click',()=>startSession());$('watchHome').addEventListener('click',()=>startSession(true));$('watchSettings').addEventListener('click',()=>startSession(true));$('exit').addEventListener('click',home);$('pause').addEventListener('click',()=>{if(['play','watch'].includes(mode))advanceWall(performance.now());pauseGame();});$('resultContinue').addEventListener('click',continueGame);$('retry').addEventListener('click',()=>startSession(watch));$('reconfigure').addEventListener('click',settings);$('resultHome').addEventListener('click',home);
-$('soundToggle').addEventListener('click',()=>{options.sound=!options.sound;$('sound').checked=options.sound;wakeAudio();render();});
-$('refresh').addEventListener('click',()=>{try{const u=new URL(location.href);u.searchParams.set('v',BUILD+'-'+Date.now());location.replace(u.href);}catch(_){location.reload();}});
-document.addEventListener('keydown',e=>{if(['Space','ArrowUp','Enter'].includes(e.code)&&['ready','play'].includes(mode)){e.preventDefault();if(e.repeat||heldKey)return;heldKey=true;press();}else if(e.code==='Escape'){if(mode==='paused')continueGame();else pauseGame();}});
-document.addEventListener('keyup',e=>{if(['Space','ArrowUp','Enter'].includes(e.code))heldKey=false;});document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGame();});window.addEventListener('blur',()=>pauseGame());
-let resizeTimer=0;function onResize(){if(game.hidden){preview();return;}clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{const b=canvas.getBoundingClientRect();if(Math.abs(b.width-width)>2||Math.abs(b.height-height)>2){pauseGame();resize();}},60);}
-window.addEventListener('resize',onResize);if(window.visualViewport)window.visualViewport.addEventListener('resize',onResize);
-function preview(){
- const c=$('preview'),r=c.getBoundingClientRect(),p=c.getContext('2d');if(!r.width)return;const d=Math.min(devicePixelRatio||1,2);c.width=Math.round(r.width*d);c.height=Math.round(r.height*d);p.setTransform(d,0,0,d,0,0);p.fillStyle='#611a9e';p.fillRect(0,0,r.width,r.height);
- const w=r.width,h=r.height;p.fillStyle='#ed6882';p.fillRect(0,8,w,3);p.fillRect(0,h-9,w,3);for(const [x,top,bot] of [[w*.09,h*.25,h*.71],[w*.65,h*.39,h*.83],[w*.92,h*.17,h*.65]]){p.fillRect(x,11,25,top-11);p.fillRect(x,bot,25,h-9-bot);}p.save();p.translate(w*.44,h*.48);p.rotate(.45);p.fillStyle='#faf3ec';p.fillRect(-13,-13,26,26);p.restore();
+function totalAt(t){const active=phase==='answer'||(phase==='paused'&&phaseBeforePause==='answer');return totalMs+(active&&cfg.mode==='trial'?Math.max(0,(phase==='paused'?pausedAt:t)-answerStart):0);}
+function logKey(k,t){if(keyEvents.length<300)keyEvents.push({key:k,ms:Math.max(0,t-answerStart)});}
+function enter(k){
+ if(phase!=='answer')return false;
+ const t=now();if(k==='back'){
+  if(input==='')return false;logKey(k,t);input=input.slice(0,-1);statusMessage='';updateKeys();render(t);soundTick(false);return true;
+ }
+ if(!/^[0-9]$/.test(k)||input.length>=2||(input===''&&k==='0'))return false;
+ if(firstInputAt===null)firstInputAt=t;logKey(k,t);input+=k;keyboardAge=t;soundTick(false);
+ const target=seq[round].reduce((a,b)=>a+b,0);
+ if(Number(input)===target){
+  const ms=Math.max(0,t-answerStart);
+  results.push({dice:seq[round].slice(),sum:target,ms,firstMs:Math.max(0,firstInputAt-answerStart),entryMs:Math.max(0,t-firstInputAt),keys:keyEvents.slice(),deletes:keyEvents.filter(e=>e.key==='back').length});
+  totalMs+=ms;phase='feedback';phaseStart=t;correctAt=t;updateKeys();announce('Doğru. '+target+'.');render(t);soundTick(true);schedule();return true;
+ }
+ // Editable, no assumed original penalty. Never auto-submit a wrong prefix.
+ if(input.length===2){statusMessage='Toplam eşleşmedi · geri silerek düzelt';statusUntil=t+1800;}else statusMessage='';
+ updateKeys();render(t);return true;
 }
-updateBest();preview();$('boot').hidden=true;
-// Explicit test gate only. These helpers control this local trainer, never Playus.
-if(new URLSearchParams(location.search).has('test'))window.__flapTest={
- Engine:FlapEngine,SOURCE,progress,clockAt,angleAt,engine:()=>engine,mode:()=>mode,options:()=>({...options}),
- manual:(opts={})=>{cancel();options={...DEFAULTS,...opts};engine=new FlapEngine(options);engine.begin();engine.flap();watch=false;mode='play';$('home').hidden=true;game.hidden=false;$('settingsOverlay').hidden=true;$('resultOverlay').hidden=true;$('readyBanner').hidden=true;resize();return engine;},
- render,resize,home,settings,startSession,press,pause:pauseGame,resume:continueGame,snapshot:()=>engine.snapshot(),
- inspect:()=>({width,height,sx,sy,ox,oy,mode,watch,raf:!!raf,pointerId,best}),
- replay:(fps=60,until=36)=>{let e=new FlapEngine(),i=0;e.begin();e.flap();for(let k=0;k<until*fps&&e.state==='running';k++){const end=(k+1)/fps;while(i<SOURCE.taps.length&&SOURCE.taps[i]<=end+1e-8){e.advanceTo(SOURCE.taps[i++]);if(e.state==='running')e.flap();}if(e.state==='running')e.advanceTo(end);}return e.snapshot();},
- pose:t=>{cancel();watch=true;mode='still';options={...DEFAULTS,layout:'reference'};engine=new FlapEngine(options);engine.begin();engine.flap();for(const e of SOURCE.taps){if(e>t)break;engine.advanceTo(e);engine.flap();}if(engine.state==='running')engine.advanceTo(t);game.hidden=false;$('home').hidden=true;$('resultOverlay').hidden=true;$('settingsOverlay').hidden=true;$('readyBanner').hidden=true;resize();return engine.snapshot();}
+function finish(){
+ phase='result';cancel();clearHeld();$('pause').hidden=true;$('practiceReveal').hidden=true;
+ const eligible=eligibility&&cfg.mode==='trial'&&!usedHint&&results.length===3&&manualTime===null;
+ if(eligible){const old=bestFor(cfg.route);if(!old||totalMs<old){bests[cfg.route]=totalMs;store.set('diceSolo.v1.bests',bests);}
+  history.push({route:cfg.route,totalMs,date:new Date().toISOString(),rounds:results.map(r=>({ms:r.ms,firstMs:r.firstMs,entryMs:r.entryMs,sum:r.sum,deletes:r.deletes}))});history=history.slice(-40);store.set('diceSolo.v1.history',history);
+ }
+ $('overlay').hidden=false;$('overlayKicker').textContent='DICE ROLL V1 · YEREL ANTRENMAN';$('overlayTitle').textContent=cfg.mode==='learn'?'Doğru toplam.':'Üç tur tamam.';
+ $('resultNumber').textContent=cfg.mode==='learn'?'TAMAM':secs(totalMs)+' sn';$('resultNumber').hidden=false;$('resultBadge').hidden=false;
+ const b=bestFor(cfg.route);$('resultBadge').textContent=eligible?(b?'Bu dizi için yerel rekor: '+secs(b)+' sn':'Yerel deneme'):'Çalışma denemesi · rekora yazılmadı';
+ $('breakdown').hidden=false;
+ $('breakdown').innerHTML=results.map((r,i)=>'<div class="brow"><div>Tur '+(i+1)+' · '+r.dice.join(' + ')+' = '+r.sum+'<small>İlk tuşa kadar '+secs(r.firstMs)+' sn · giriş '+secs(r.entryMs)+' sn'+(r.deletes?' · '+r.deletes+' geri silme':'')+'</small></div><b>'+secs(r.ms)+' sn</b></div>').join('');
+ $('resultNote').textContent=cfg.mode==='learn'?'Öğrenmede süre sıralaması yok. Yeni bir turla tekrar çalışabilirsin.':(cfg.route==='reference'?'Bu üç yerleşim kayıttakiyle aynı. 3,46 sn yalnız gönderdiğin koşunun referans sonucudur, güncel dünya sıralaması değildir.':'Bu zar dizisi trainer tarafından üretildi. Sonuç Playus sıralamasına gönderilmez.')+(!eligibility?' Duraklatma veya görüntü değişimi nedeniyle bu deneme rekor dışı.':'');
+ $('again').textContent=cfg.route==='reference'&&cfg.mode==='trial'?'AYNI 3 TURU TEKRARLA':'YENİ DENEME';updateKeys();render(now());refreshHome();announce('Tamamlandı. '+secs(totalMs)+' saniye.');
+}
+function pause(reason='Duraklatıldı'){
+ if(!running())return;
+ pausedAt=now();phaseBeforePause=phase;phase='paused';eligibility=false;cancel();clearHeld();updateKeys();
+ $('overlay').hidden=false;$('overlayKicker').textContent='ÇALIŞMA MOLASI';$('overlayTitle').textContent='Duraklatıldı';$('resultNumber').hidden=true;$('resultBadge').hidden=true;$('breakdown').hidden=true;
+ $('resultNote').textContent=reason+'. Sayaç bekliyor. Ek düşünme süresi oluştuğu için bu deneme rekora kaydedilmeyecek.';$('again').textContent='DEVAM ET';$('pause').hidden=true;render(pausedAt);announce('Duraklatıldı.');
+}
+function resume(){if(phase!=='paused')return;const t=now(),gap=Math.max(0,t-pausedAt);phaseStart+=gap;if(phaseBeforePause==='answer'){answerStart+=gap;if(firstInputAt!==null)firstInputAt+=gap;}if(statusUntil>pausedAt)statusUntil+=gap;phase=phaseBeforePause;$('overlay').hidden=true;$('pause').hidden=false;updateKeys();render(t);schedule();}
+function home(){cancel();clearHeld();phase='home';$('game').hidden=true;$('overlay').hidden=true;$('home').hidden=false;refreshHome();drawHero();}
+function getTotalTarget(){return seq[round]?.reduce((a,b)=>a+b,0)||0;}
+function hint(){if(phase!=='answer'||cfg.mode!=='learn')return;usedHint=true;eligibility=false;statusMessage=seq[round].join(' + ')+' = '+getTotalTarget();statusUntil=now()+2500;render(now());}
+// Native buttons sit exactly over the measured visual key rectangles.
+const keys=[];
+for(const [i,k] of ['1','2','3','4','5','6','7','8','9',null,'0','back'].entries()){
+ if(k===null)continue;const el=document.createElement('button');el.type='button';el.className='key';el.dataset.key=k;el.setAttribute('aria-label',k==='back'?'Son rakamı sil':k);
+ if(k==='back')el.innerHTML='<svg viewBox="0 0 48 34" aria-hidden="true"><path d="M17 6H41V28H17L6 17Z M23 12L33 22 M33 12L23 22" fill="none" stroke="currentColor" stroke-width="3.3" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+ else{const g=GLYPHS[k];el.innerHTML='<svg viewBox="0 0 '+g.w+' 740" aria-hidden="true"><g fill="currentColor" transform="translate(0,725) scale(1,-1)"><path d="'+g.d+'"/></g></svg>';}
+ el.addEventListener('pointerdown',e=>{
+  if(e.pointerType==='mouse'&&e.button!==0)return;e.preventDefault();if(heldPointers.has(e.pointerId))return;
+  lastPointerTime=performance.now();heldPointers.set(e.pointerId,el);el.classList.add('held');try{el.setPointerCapture(e.pointerId);}catch(_){}enter(k);
+ },{passive:false});
+ el.addEventListener('click',e=>{e.preventDefault();if(e.detail===0&&performance.now()-lastPointerTime>650)enter(k);});
+ if(!window.PointerEvent){el.addEventListener('touchstart',e=>{e.preventDefault();lastPointerTime=performance.now();for(const touch of e.changedTouches){if(!heldPointers.has(touch.identifier)){heldPointers.set(touch.identifier,el);enter(k);}}},{passive:false});el.addEventListener('mousedown',e=>{if(performance.now()-lastPointerTime>800&&e.button===0){e.preventDefault();enter(k);}});}
+ $('keypad').appendChild(el);keys.push({el,k,row:Math.floor(i/3),col:i%3});
+}
+function release(e){const p=heldPointers.get(e.pointerId);if(p){p.classList.remove('held');heldPointers.delete(e.pointerId);}}
+document.addEventListener('pointerup',release);document.addEventListener('pointercancel',release);
+document.addEventListener('touchend',e=>{if(window.PointerEvent)return;for(const t of e.changedTouches)heldPointers.delete(t.identifier);});
+function updateKeys(){for(const {el,k} of keys){el.disabled=phase!=='answer'||((k==='0'||k==='back')&&input==='');}}
+function resize(invalidate=true){
+ if($('game').hidden)return;const b=$('game').getBoundingClientRect(),st=parseFloat(getComputedStyle($('game')).paddingTop)||0,sb=parseFloat(getComputedStyle($('game')).paddingBottom)||0;
+ const nw=Math.max(1,b.width),nh=Math.max(1,b.height);if(invalidate&&running()&&Math.max(Math.abs(nw-W),Math.abs(nh-H))>5)pause('Görüntü alanı değişti');W=nw;H=nh;D=Math.min(devicePixelRatio||1,3);
+ canvas.width=Math.round(W*D);canvas.height=Math.round(H*D);canvas.style.width=W+'px';canvas.style.height=H+'px';
+ const usable=Math.max(1,H-st-sb),contain=cfg.layout==='reference'||W>usable;
+ if(contain){const s=Math.min(W/REF.w,usable/REF.h);sx=sy=s;ox=(W-REF.w*s)/2;oy=st+(usable-REF.h*s)/2;}
+ else{sx=W/REF.w;sy=usable/REF.h;ox=0;oy=st;}
+ for(const {el,row,col} of keys){const p=point(REF.keysX[col],REF.keysY[row]);Object.assign(el.style,{left:p.x+'px',top:p.y+'px',width:REF.keyW*sx+'px',height:REF.keyH*sy+'px',borderRadius:15*Math.min(sx,sy)+'px'});const svg=el.querySelector('svg'),dh=Math.min(24*sx,REF.keyH*sy*.44);svg.style.height=dh+'px';if(el.dataset.key!=='back'){svg.style.width=(GLYPHS[el.dataset.key].w/740*dh*1.25)+'px';svg.setAttribute('preserveAspectRatio','none');}}
+ render(now());
+}
+function rr(c,x,y,w,h,r,color){c.fillStyle=color;c.beginPath();if(c.roundRect)c.roundRect(x,y,w,h,r);else{r=Math.min(r,w/2,h/2);c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}c.fill();}
+function text(c,s,x,y,size,color='#fff',weight=700){c.fillStyle=color;c.font=weight+' '+size+'px -apple-system,BlinkMacSystemFont,Arial,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(s,x,y);}
+function number(c,s,x,y,height,color){
+ const chars=String(s),advance=ch=>ch==='.'||ch===','?350:GLYPHS[ch]?.w||0;let units=0;for(const ch of chars)units+=advance(ch);const f=height/728;
+ c.save();c.translate(x-units*f/2,y+height*.5);c.scale(f,-f);c.fillStyle=color;
+ for(const ch of chars){if(ch==='.'||ch===','){c.beginPath();c.arc(150,88,88,0,Math.PI*2);c.fill();}else if(GLYPHS[ch])c.fill(new Path2D(GLYPHS[ch].d));c.translate(advance(ch),0);}c.restore();
+}
+function rot(v,a){let [x,y,z]=v;let c=Math.cos(a[0]),s=Math.sin(a[0]);[y,z]=[y*c-z*s,y*s+z*c];c=Math.cos(a[1]);s=Math.sin(a[1]);[x,z]=[x*c+z*s,-x*s+z*c];c=Math.cos(a[2]);s=Math.sin(a[2]);return [x*c-y*s,x*s+y*c,z];}
+function pipPositions(n){const q=.44;if(n===1)return [[0,0]];if(n===2)return [[-q,q],[q,-q]];if(n===3)return [[-q,q],[0,0],[q,-q]];if(n===4)return [[-q,-q],[q,-q],[-q,q],[q,q]];if(n===5)return [...pipPositions(4),[0,0]];return [-q,q].flatMap(x=>[-.55,0,.55].map(y=>[x,y]));}
+function drawDie(c,cx,cy,size,n,angles=[.018,-.03,0]){
+ const half=size/2,cam=7;
+ const proj=v=>{const [x,y,z]=rot(v,angles),f=(cam-1)/(cam-z);return [cx+x*half*f,cy+y*half*f,z];};
+ const right=[1,2,3,4,5,6].find(k=>k!==n&&k!==7-n),top=[1,2,3,4,5,6].find(k=>![n,7-n,right,7-right].includes(k));
+ const defs=[{o:[0,0,1],u:[1,0,0],v:[0,1,0],n},{o:[0,0,-1],u:[-1,0,0],v:[0,1,0],n:7-n},{o:[1,0,0],u:[0,0,-1],v:[0,1,0],n:right},{o:[-1,0,0],u:[0,0,1],v:[0,1,0],n:7-right},{o:[0,-1,0],u:[1,0,0],v:[0,0,1],n:top},{o:[0,1,0],u:[1,0,0],v:[0,0,-1],n:7-top}];
+ const faces=defs.filter(f=>rot(f.o,angles)[2]>.001).sort((a,b)=>rot(a.o,angles)[2]-rot(b.o,angles)[2]);
+ c.save();c.fillStyle='#03020c';c.shadowColor='#02000b85';c.shadowBlur=size*.2;c.shadowOffsetY=size*.085;c.beginPath();c.ellipse(cx,cy+size*.42,size*.43,size*.105,0,0,Math.PI*2);c.fill();c.shadowBlur=0;c.shadowOffsetY=0;
+ for(const f of faces){
+  const norm=rot(f.o,angles),z=norm[2],tone=Math.round(215+26*Math.max(0,z));
+  const map=(u,v)=>proj(f.o.map((a,i)=>a+f.u[i]*u+f.v[i]*v));
+  // Rounded silhouette: no square under-face protrudes at the corners.
+  c.beginPath();const r=.15;const centers=[[1-r,-1+r],[1-r,1-r],[-1+r,1-r],[-1+r,-1+r]];
+  centers.forEach((center,k)=>{for(let j=0;j<=5;j++){const a=(-Math.PI/2+k*Math.PI/2)+j/5*Math.PI/2;const q=map(center[0]+r*Math.cos(a),center[1]+r*Math.sin(a));if(k===0&&j===0)c.moveTo(q[0],q[1]);else c.lineTo(q[0],q[1]);}});c.closePath();
+  const g=c.createLinearGradient(cx-size*.5,cy-size*.5,cx+size*.5,cy+size*.5);g.addColorStop(0,'rgb('+[Math.min(255,tone+8),Math.min(255,tone+8),Math.min(255,tone+5)].join(',')+')');g.addColorStop(.8,'rgb('+[tone,tone,tone-3].join(',')+')');g.addColorStop(1,'rgb('+[tone-13,tone-13,tone-16].join(',')+')');c.fillStyle=g;c.fill();c.lineWidth=Math.max(.5,size*.008);c.strokeStyle='#fff5';c.stroke();
+  for(const [u,v] of pipPositions(f.n)){c.beginPath();for(let j=0;j<=24;j++){const a=j/24*Math.PI*2,q=map(u+.206*Math.cos(a),v+.206*Math.sin(a));if(j===0)c.moveTo(q[0],q[1]);else c.lineTo(q[0],q[1]);}c.closePath();c.fillStyle='#151324';c.fill();}
+ }
+ c.restore();
+}
+function diceAngles(i,t){
+ const rest=[[.012,.036,.006],[.014,-.018,-.005],[-.084,.025,.003],[-.09,-.025,.003]][i];
+ if(phase!=='rolling'&&!(phase==='paused'&&phaseBeforePause==='rolling'))return rest;
+ const age=Math.max(0,t-phaseStart),duration=[1240,1320,1420,1500][i],p=Math.min(1,age/duration),turn=1-p;
+ const ease=turn*turn;return [rest[0]+ease*(10.5+i*1.7),rest[1]+ease*(13.2+i*2.1),rest[2]+Math.sin(p*11+i)*turn*.55];
+}
+function render(t=now()){
+ if(phase==='home'||!ctx)return;ctx.setTransform(D,0,0,D,0,0);ctx.fillStyle='#121129';ctx.fillRect(0,0,W,H);
+ const displayTime=phase==='paused'?pausedAt:t;const userVal=cfg.mode==='learn'?'Çalışma':secs(totalAt(displayTime))+' sn';
+ const entries=[{label:'EN',value:bestFor(cfg.route)?secs(bestFor(cfg.route))+' sn':'Yerel rekor',color:'#956075'},{label:'3,46',value:'Kayıt · 3 tur',color:'#596a78'},{label:'SEN',value:userVal,color:'#9b7de8'}];
+ entries.forEach((e,i)=>{const p=point(139+i*117,120);ctx.fillStyle=e.color;ctx.beginPath();ctx.arc(p.x,p.y,29*sx,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#fff5';ctx.lineWidth=1.5*sx;ctx.stroke();text(ctx,e.label,p.x,p.y,19*sx,'#171326',850);const q=point(139+i*117,151);rr(ctx,q.x-56*sx,q.y-13*sy,112*sx,26*sy,9*Math.min(sx,sy),i===2?'#f9f7fc':'#b3adc1');text(ctx,e.value,q.x,q.y,11*sx,'#191324',800);if(i===2){const l=point(373,87);rr(ctx,l.x-18*sx,l.y-13*sy,36*sx,26*sy,8*Math.min(sx,sy),'#ffe169');text(ctx,'SEN',l.x,l.y,11*sx,'#171322',850);}});
+ const timeP=point(256,308);number(ctx,cfg.mode==='learn'?'0.0':(totalAt(displayTime)/1000).toFixed(1),timeP.x,timeP.y,33*sx,'#9997ad');
+ for(let i=0;i<3;i++){const p=point(234+i*22,345);ctx.fillStyle=i<=round?'#e5e2ef':'#39354e';ctx.beginPath();ctx.arc(p.x,p.y,6*sx,0,Math.PI*2);ctx.fill();}
+ const vals=seq[round]||REF.dice[0];vals.forEach((n,i)=>{const p=point(...REF.centers[i]);drawDie(ctx,p.x,p.y,REF.size*sx,n,diceAngles(i,displayTime));});
+ const answerP=point(256,681);if(input!=='')number(ctx,input,answerP.x,answerP.y,71*sx,phase==='feedback'||phase==='result'?'#42dc78':(statusMessage&&input.length===2?'#f2a5b2':'#fff'));
+ if(statusMessage&&displayTime<statusUntil){const p=point(256,723);text(ctx,statusMessage,p.x,p.y,11*sx,'#dbcce6',600);}
+ if(cfg.mode==='learn'){const p=point(256,235);text(ctx,'SÜRESİZ ÖĞRENME',p.x,p.y,11*sx,'#b2a6cf',750);}
+}
+function drawHero(){const c=$('heroCanvas'),b=c.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);if(!b.width)return;c.width=Math.round(b.width*d);c.height=Math.round(b.height*d);const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);x.clearRect(0,0,b.width,b.height);const size=Math.min(68,b.height*.44),gap=size*.72,cy=b.height*.53,cx=b.width*.5;drawDie(x,cx-gap*1.5,cy+3,size,6,[.22,-.25,-.12]);drawDie(x,cx-gap*.5,cy-13,size,4,[-.22,.18,.06]);drawDie(x,cx+gap*.5,cy+8,size,5,[.20,.25,-.08]);drawDie(x,cx+gap*1.5,cy-8,size,2,[.16,-.22,.1]);}
+let audioContext=null;
+function soundTick(correct){if(!cfg.sound)return;try{audioContext ||= new (window.AudioContext||window.webkitAudioContext)();if(audioContext.state==='suspended')audioContext.resume();const o=audioContext.createOscillator(),g=audioContext.createGain(),t=audioContext.currentTime;o.type='sine';o.frequency.value=correct?720:460;g.gain.setValueAtTime(.035,t);g.gain.exponentialRampToValueAtTime(.0001,t+.045);o.connect(g);g.connect(audioContext.destination);o.start(t);o.stop(t+.05);}catch(_){}}
+$('start').addEventListener('click',startSession);$('exit').addEventListener('click',home);$('pause').addEventListener('click',()=>pause());$('again').addEventListener('click',()=>phase==='paused'?resume():startSession());$('menu').addEventListener('click',home);$('practiceReveal').addEventListener('click',hint);
+for(const id of ['route','mode','layout','sound'])$(id).addEventListener('change',refreshHome);
+$('refresh').addEventListener('click',()=>{if(location.protocol==='http:'||location.protocol==='https:'){const u=new URL(location.href);u.searchParams.set('v',BUILD+'-'+Date.now());location.replace(u.href);}else location.reload();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)pause('Sekme arka plana geçti');});
+window.addEventListener('blur',()=>pause('Pencere odağı değişti'));
+let resizeQueued=false;
+function queueResize(){if(resizeQueued)return;resizeQueued=true;requestAnimationFrame(()=>{resizeQueued=false;if(phase==='home')drawHero();else resize();});}
+window.addEventListener('resize',queueResize);if(window.visualViewport)visualViewport.addEventListener('resize',queueResize);
+document.addEventListener('keydown',e=>{
+ if(e.repeat||phase==='home'||e.ctrlKey||e.metaKey||e.altKey)return;
+ if(e.code==='Escape'){e.preventDefault();if(phase==='paused')resume();else pause();return;}
+ if(phase==='answer'&&(/^\d$/.test(e.key)||e.key==='Backspace')){e.preventDefault();enter(e.key==='Backspace'?'back':e.key);}
+});
+$('game').addEventListener('contextmenu',e=>e.preventDefault());
+// Explicit local-only QA harness. Absent in ordinary use; no other app is read or controlled.
+if(IS_TEST)window.__diceTest={
+ start:(options={})=>{home();for(const [k,v] of Object.entries({route:'reference',mode:'trial',layout:'screen',...options}))if($(k))$(k).value=v;manualTime=0;startSession();},
+ step:ms=>{if(!Number.isFinite(ms)||ms<0)throw new Error('Bad step');manualTime+=ms;tick(manualTime);render(manualTime);},
+ key:enter, pause:()=>pause('Test'), resume, hint,home,
+ snapshot:()=>({phase,round,input,totalMs,totalAt:totalAt(now()),answerStart,phaseStart,eligible:eligibility,usedHint,firstInputAt,seq:seq.map(d=>d.slice()),results:JSON.parse(JSON.stringify(results)),sx,sy,ox,oy,W,H,keys:keys.map(k=>({k:k.k,disabled:k.el.disabled,box:k.el.getBoundingClientRect().toJSON()})),raf:raf!==null,held:heldPointers.size}),
+ layout:()=>resize(false),sequence:makeSequence,
+ live:()=>{manualTime=null;home();startSession();},
+ pose:(index=0,entry='',elapsed=0)=>{manualTime=0;$('route').value='reference';$('mode').value='trial';$('layout').value='screen';startSession();round=index;phase='answer';input=entry;answerStart=-elapsed;totalMs=index===0?0:REF.cumulativeMs[index-1];updateKeys();render(now());},
+ setDice:values=>{if(!Array.isArray(values)||values.length!==4||!values.every(v=>Number.isInteger(v)&&v>=1&&v<=6))throw new Error('Bad test dice');seq[round]=values.slice();render(now());},
+ finish,reference:REF,storage:store
 };
+refreshHome();drawHero();$('boot').hidden=true;
 </script>
-</body></html>
+</body>
+</html>
